@@ -1,11 +1,16 @@
 package adapters;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.media.MediaRecorder;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,6 +73,14 @@ public class messageAdapter extends RecyclerView.Adapter {
         if (holder.getClass() == OutgoingViewholder.class) {
             ((OutgoingViewholder) holder).outgoingMsg.setText(msgData.get(position).getMsgText());
 
+            if (msgData.get(position).getImageUri() != null) {
+                ((OutgoingViewholder) holder).outgoing_image.setVisibility(View.VISIBLE);
+
+                Picasso.get()
+                        .load(msgData.get(position).getImageUri())
+                        .into(((OutgoingViewholder) holder).outgoing_image);
+            }
+
             long time = msgData.get(position).getMsgTime();
             final Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(time);
@@ -76,6 +91,12 @@ public class messageAdapter extends RecyclerView.Adapter {
         } else {
 
             ((IncomingViewholder) holder).incomingMsg.setText(msgData.get(position).getMsgText());
+            if (msgData.get(position).getImageUri() != null) {
+                ((IncomingViewholder) holder).incomingImage.setVisibility(View.VISIBLE);
+                Picasso.get()
+                        .load(msgData.get(position).getImageUri())
+                        .into(((IncomingViewholder) holder).incomingImage);
+            }
             long time = msgData.get(position).getMsgTime();
             final Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(time);
@@ -96,6 +117,7 @@ public class messageAdapter extends RecyclerView.Adapter {
     public class OutgoingViewholder extends RecyclerView.ViewHolder {
 
         TextView outgoingMsg, outgoingMsgTime;
+        ImageView outgoing_image;
 
 
         public OutgoingViewholder(@NonNull View itemView) {
@@ -103,19 +125,23 @@ public class messageAdapter extends RecyclerView.Adapter {
 
             outgoingMsg = itemView.findViewById(R.id.outgoing_msg);
             outgoingMsgTime = itemView.findViewById(R.id.outgoing_msg_time);
+            outgoing_image = itemView.findViewById(R.id.outgoing_img);
         }
     }
 
     public class IncomingViewholder extends RecyclerView.ViewHolder {
 
         TextView incomingMsg, incomingMsgTime;
+        ImageView incomingImage;
 
         public IncomingViewholder(@NonNull View itemView) {
             super(itemView);
 
             incomingMsg = itemView.findViewById(R.id.incoming_msg);
             incomingMsgTime = itemView.findViewById(R.id.incoming_msg_time);
+            incomingImage = itemView.findViewById(R.id.incoming_img);
         }
     }
+// audio recording
 
 }

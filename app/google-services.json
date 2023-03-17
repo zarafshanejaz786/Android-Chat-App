@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "408918460561",
+    "project_id": "my-doctor-online-f174e",
+    "storage_bucket": "my-doctor-online-f174e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408918460561:android:73777a04fb1a2be4b45730",
+        "android_client_info": {
+          "package_name": "com.example.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408918460561-tgppo1esa9b6rq05anjmtgqb6ggu3qak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIIO1NN4zbZoGT9lsHy6B66Xw7xWbwRkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408918460561-tgppo1esa9b6rq05anjmtgqb6ggu3qak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408918460561:android:e7c63277425e2616b45730",
+        "android_client_info": {
+          "package_name": "com.example.mydoctoronline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408918460561-tgppo1esa9b6rq05anjmtgqb6ggu3qak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIIO1NN4zbZoGT9lsHy6B66Xw7xWbwRkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408918460561-tgppo1esa9b6rq05anjmtgqb6ggu3qak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

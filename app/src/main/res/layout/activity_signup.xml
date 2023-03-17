@@ -133,5 +133,19 @@
             app:cornerRadius="8dp"
             app:strokeColor="?attr/colorSecondary"
             app:strokeWidth="2dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginBottom="73dp"
+        android:textColor="@color/grey"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:text="Demo Build"
+        android:visibility="visible" />
+
+
 
 </RelativeLayout>

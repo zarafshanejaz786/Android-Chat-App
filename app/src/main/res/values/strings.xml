@@ -2,5 +2,8 @@
     <string name="app_name">Chat App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--
+    <string name="default_web_client_id">408918460561-tgppo1esa9b6rq05anjmtgqb6ggu3qak.apps.googleusercontent.com</string>
+-->
 
 </resources>

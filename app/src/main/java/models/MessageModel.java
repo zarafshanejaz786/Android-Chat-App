@@ -1,22 +1,24 @@
 package models;
 
 public class MessageModel {
+    private String uId;
+    private String msgText;
+    private long msgTime;
+    private String imageUri; // New field for image URI
 
-    String uId, msgText;
-    long msgTime;
-
-    public MessageModel() {
-    }
-
-    public MessageModel(long msgTime, String msgText) {
-        this.msgTime = msgTime;
-        this.msgText = msgText;
-    }
+    public MessageModel() {}
 
     public MessageModel(String uId, String msgText, long msgTime) {
         this.uId = uId;
         this.msgText = msgText;
         this.msgTime = msgTime;
+    }
+
+    public MessageModel(String uId, String msgText, long msgTime, String imageUri) {
+        this.uId = uId;
+        this.msgText = msgText;
+        this.msgTime = msgTime;
+        this.imageUri = imageUri;
     }
 
     public String getuId() {
@@ -42,4 +44,13 @@ public class MessageModel {
     public void setMsgTime(long msgTime) {
         this.msgTime = msgTime;
     }
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
 }
