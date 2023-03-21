@@ -62,7 +62,9 @@ import models.MessageModel;
 
 public class MessagingActivity extends AppCompatActivity {
 
-    String tag;
+    String tagImg;
+    String tagPDF;
+    String tagAudio;
     Uri currentGallery_File_Uri;
     String current_File_FirebaseUri;
 
@@ -414,20 +416,20 @@ public void sendTextMsg(int msgAdapterPosition){
         String txtMsg = "";
         String msg = activityMessagingBinding.typingSpace.getText().toString().trim();
 
-       if (tag == "image"){
+       if (tagImg == "image"){
            if (currentGallery_File_Uri != null){
                uploadImage(currentGallery_File_Uri, msgAdapterPosition);
               // uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"image");
 
            }
        }
-       if (tag == "pdf"){
+       if (tagPDF == "pdf"){
            if (currentGallery_File_Uri != null){
                uploadPDF(currentGallery_File_Uri, msgAdapterPosition);
               // uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"pdf");
            }
        }
-       if (tag == "audio"){
+       if (tagAudio == "audio"){
            if (currentGallery_File_Uri != null){
                uploadAudio(currentGallery_File_Uri,msgAdapterPosition);
                //uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"audio");
@@ -927,11 +929,6 @@ public void sendTextMsg(int msgAdapterPosition){
     }
     private static final int REQUEST_CODE_PICK_AUDIO = 1;
 
-    private void pickAudioFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_CODE_PICK_AUDIO);
-    }
 
 
     public void select_PDF_from_gallery(View view) {
@@ -991,7 +988,7 @@ public void sendTextMsg(int msgAdapterPosition){
 
                             firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
                                     .child("recentMessage").setValue(msg);
-                            tag = "";
+                           // tag = "";
                         }
                     });
       //  }
@@ -1199,7 +1196,7 @@ public void sendTextMsg(int msgAdapterPosition){
     }
 
     private void openFileChooser() {
-        tag = "image";
+        tagImg = "image";
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
@@ -1207,13 +1204,20 @@ public void sendTextMsg(int msgAdapterPosition){
 
     }
     private void openFilePicker() {
-        tag = "pdf";
+        tagPDF = "pdf";
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/pdf");
         startActivityForResult(intent, PICK_PDF_FILE);
     }
+    private void pickAudioFromGallery() {
+        tagAudio = "audio";
+
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_PICK_AUDIO);
+    }
+
     private String getRecordingFilePath() {
-        tag = "audio";
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File music = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
         File file = new File(music, "testFile" + ".mp3");
