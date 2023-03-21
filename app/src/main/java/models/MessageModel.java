@@ -5,8 +5,11 @@ public class MessageModel {
     private String msgText;
     private long msgTime;
     private String imageUri; // New field for image URI
+    private String audioUri;
+    private String pdfUri;
 
-    public MessageModel() {}
+    public MessageModel() {
+    }
 
     public MessageModel(String uId, String msgText, long msgTime) {
         this.uId = uId;
@@ -19,6 +22,15 @@ public class MessageModel {
         this.msgText = msgText;
         this.msgTime = msgTime;
         this.imageUri = imageUri;
+    }
+
+    public MessageModel(String uId, String msgText, long msgTime, String imageUri, String audioUri, String pdfUri) {
+        this.uId = uId;
+        this.msgText = msgText;
+        this.msgTime = msgTime;
+        this.imageUri = imageUri;
+        this.audioUri = audioUri;
+        this.pdfUri = pdfUri;
     }
 
     public String getuId() {
@@ -51,6 +63,22 @@ public class MessageModel {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public String getAudioUri() {
+        return audioUri;
+    }
+
+    public void setAudioUri(String audioUri) {
+        this.audioUri = audioUri;
+    }
+
+    public String getPdfUri() {
+        return pdfUri;
+    }
+
+    public void setPdfUri(String pdfUri) {
+        this.pdfUri = pdfUri;
     }
 
 }

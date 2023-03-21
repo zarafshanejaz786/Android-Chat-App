@@ -138,6 +138,7 @@
                     android:layout_marginStart="0dp"
                     android:onClick="openGallery"
                     android:src="@drawable/baseline_add_circle_24" />
+
                 <ImageView
                     android:id="@+id/add_audio"
                     android:layout_width="40dp"
@@ -147,8 +148,9 @@
                     android:layout_marginStart="0dp"
                     android:onClick="startRecorder"
                     android:src="@drawable/baseline_mic_24" />
+
                 <ImageView
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/stop_audio"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
@@ -166,6 +168,7 @@
                     android:layout_marginStart="0dp"
                     android:onClick="playAudio"
                     android:src="@drawable/baseline_play_circle_outline_24" />
+
                 <ImageView
                     android:id="@+id/stop_play"
                     android:layout_width="40dp"
@@ -176,6 +179,16 @@
                     android:layout_marginStart="0dp"
                     android:onClick="stopPlay"
                     android:src="@drawable/baseline_pause_circle_outline_24" />
+                <ImageView
+                    android:id="@+id/btn_pdf"
+                    android:layout_width="40dp"
+                    android:visibility="visible"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:onClick="select_PDF_from_gallery"
+                    android:src="@drawable/baseline_picture_as_pdf_24" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

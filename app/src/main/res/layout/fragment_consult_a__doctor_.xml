@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Consult_a_Doctor_Fragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:text="Welcome Mis Hannah.!"
+            android:textColor="@color/grey"
+            android:textSize="33dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.842"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/btn_contact_doc"
+            android:layout_width="300dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:textSize="33dp"
+            android:hint="Name"
+            android:textColorHint="@color/grey"
+            android:background="@drawable/edittext_border"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="80dp"
+            android:onClick="btn_contact_doc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userName" />
+        <EditText
+            android:id="@+id/btn_view_your_record"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
+            android:maxLines="5"
+            android:padding="5dp"
+            android:textSize="25dp"
+            android:hint="Write your problem here"
+            android:textColorHint="@color/grey"
+            android:layout_marginHorizontal="10dp"
+            android:onClick="btn_view_your_record"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_contact_doc" />
+
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:text="or"
+            android:textColor="@color/grey"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.422"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_view_your_record" />
+
+        <LinearLayout
+            android:id="@+id/audio_container"
+            android:orientation="horizontal"
+            android:layout_width="300dp"
+            android:onClick="btn_order_lab"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Order Labs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/or" >
+            <ImageView
+                android:id="@+id/add_audio"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:onClick="startRecorder"
+                android:src="@drawable/baseline_mic_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:text="Record Audioo of \n upto 2 minutes"
+                android:textColor="@color/grey"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.842"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/document_containor"
+            android:orientation="horizontal"
+            android:layout_width="300dp"
+            android:onClick="btn_order_lab"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Order Labs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/audio_container" >
+            <ImageView
+                android:id="@+id/add_document"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:onClick="startRecorder"
+                android:src="@drawable/baseline_attach_file_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Attach relevant \n reports or labs"
+                android:textColor="@color/grey"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.842"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_order_medication"
+            android:onClick="btn_order_medication"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
+            android:text="Order Medication"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_containor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

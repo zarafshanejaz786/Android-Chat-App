@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,9 +61,16 @@ import adapters.messageAdapter;
 import models.MessageModel;
 
 public class MessagingActivity extends AppCompatActivity {
-    Uri audioUri;
+
+    String tag;
+    Uri currentGallery_File_Uri;
+    String current_File_FirebaseUri;
+
+    Uri audioUri_gallery;
+    Uri pdfUri_gallery;
     ///////////// tech project
-    private static final int REQUEST_AUDIO_PERMISSION_CODE = 101;
+    private static final int REQUEST_AUDIO_PERMISSION_CODE = 101;//audio
+    private static final int PICK_PDF_FILE = 1;
 
     Handler handler;
     ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -70,6 +78,7 @@ public class MessagingActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer_tp;
     ImageView ibRecorder, ibPlay;
     TextView tvTime, tvRecordingPath, ivSimpleBg;
+    EditText typing_space;
     boolean isRecording = false;
     boolean isPlaying = false;
     int seconds = 0;
@@ -89,8 +98,11 @@ public class MessagingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private MediaRecorder mRecorder;
     private String mFileName;
-    private Uri mImageUri;
+    private Uri mImageUri_gallery;
     private Uri mImageFirebaseUri;
+    private String commonUri_firebase;
+    private Uri mAudioFirebaseUri;
+    private Uri mPDF_FirebaseUri;
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
 
@@ -111,6 +123,7 @@ public class MessagingActivity extends AppCompatActivity {
         mediaPlayer_tp = new MediaPlayer();
         tvTime = findViewById(R.id.tv_time);
         tvRecordingPath = findViewById(R.id.tv_recording_path);
+        typing_space = findViewById(R.id.typing_space);
         /////////////TechPro
 
         if (getSupportActionBar() != null) {
@@ -186,6 +199,8 @@ public class MessagingActivity extends AppCompatActivity {
                                     , decrypted
                                     , (Long) Long.valueOf(e.child("msgTime").getValue().toString())
                                     , e.child("imageUri").getValue().toString()
+                                 //   , e.child("audioUri").getValue().toString()
+                                  //  , e.child("pdfUri").getValue().toString()
 //                                ,mImageUri.toString()
                             ));
 
@@ -234,6 +249,8 @@ public class MessagingActivity extends AppCompatActivity {
                 }*/
                 try {
                     sendTextMsg(msgAdapter.getItemCount() - 1);
+
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -261,15 +278,10 @@ public class MessagingActivity extends AppCompatActivity {
 
     }
 
-    private void openFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-        //  uploadFile();
-    }
 
+/*
     private void uploadFile() {
-        if (mImageUri != null) {
+        if (mImageUri_gallery != null) {
             // Set a progress bar while the image is being uploaded
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
@@ -281,10 +293,10 @@ public class MessagingActivity extends AppCompatActivity {
 
             // Create a unique file name for the image
             StorageReference fileReference = storageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
+                    + "." + getFileExtension(mImageUri_gallery));
 
             // Upload the image to Firebase Storage
-            fileReference.putFile(mImageUri)
+            fileReference.putFile(mImageUri_gallery)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -335,6 +347,7 @@ public class MessagingActivity extends AppCompatActivity {
             Toast.makeText(MessagingActivity.this, "No image selected", Toast.LENGTH_SHORT).show();
         }
     }
+*/
 /*
 public void sendTextMsg(int msgAdapterPosition){
     String msg = activityMessagingBinding.typingSpace.getText().toString().trim();
@@ -398,8 +411,58 @@ public void sendTextMsg(int msgAdapterPosition){
 */
 
     public void sendTextMsg(int msgAdapterPosition) throws Exception {
-        if (audioUri!=null){
-            uploadAudio(audioUri);
+        String txtMsg = "";
+        String msg = activityMessagingBinding.typingSpace.getText().toString().trim();
+
+       if (tag == "image"){
+           if (currentGallery_File_Uri != null){
+               uploadImage(currentGallery_File_Uri, msgAdapterPosition);
+              // uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"image");
+
+           }
+       }
+       if (tag == "pdf"){
+           if (currentGallery_File_Uri != null){
+               uploadPDF(currentGallery_File_Uri, msgAdapterPosition);
+              // uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"pdf");
+           }
+       }
+       if (tag == "audio"){
+           if (currentGallery_File_Uri != null){
+               uploadAudio(currentGallery_File_Uri,msgAdapterPosition);
+               //uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"audio");
+           }
+       }
+
+        if (!msg.isEmpty()){
+           uploadMsg_To_Rt_DB(msgAdapterPosition,"null",msg);
+
+       }
+
+        /*
+        if (pdfUri_gallery !=null){
+            uploadPDF(pdfUri_gallery);
+        }
+*/
+/*
+        if (audioUri_gallery !=null){
+            uploadAudio(audioUri_gallery);
+        }
+*/
+
+
+
+
+
+      //  uploadMsg_To_Rt_DB(msgAdapterPosition);
+    }
+/*
+    public void sendTextMsg(int msgAdapterPosition) throws Exception {
+        if (pdfUri_gallery !=null){
+            uploadPDF(pdfUri_gallery);
+        }
+        if (audioUri_gallery !=null){
+            uploadAudio(audioUri_gallery);
         }
         String txtMsg = "";
         String msg = activityMessagingBinding.typingSpace.getText().toString().trim();
@@ -414,7 +477,7 @@ public void sendTextMsg(int msgAdapterPosition){
         long date = new Date().getTime();
         MessageModel messageModel = new MessageModel();
         activityMessagingBinding.typingSpace.setText("");
-        if (mImageUri != null) {
+        if (mImageUri_gallery != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
@@ -422,21 +485,23 @@ public void sendTextMsg(int msgAdapterPosition){
             StorageReference storageRef = FirebaseStorage.getInstance().getReference("chat_images");
 
             StorageReference fileReference = storageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
+                    + "." + getFileExtension(mImageUri_gallery));
 
-            fileReference.putFile(mImageUri)
+            fileReference.putFile(mImageUri_gallery)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             // Hide the progress bar and show a success message
                             progressDialog.dismiss();
-                            Toast.makeText(MessagingActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MessagingActivity.this, "Image Upload successful", Toast.LENGTH_SHORT).show();
 
                             // Get the download URL of the image
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    mImageFirebaseUri = uri;
+                                   // mImageFirebaseUri = uri;
+                                    commonUri = uri.toString()+".img";
+                                    mImageUri_gallery = null;
                                 }
                             });
                         }
@@ -459,16 +524,32 @@ public void sendTextMsg(int msgAdapterPosition){
                     });
 
             ////////
-            if (mImageFirebaseUri != null) {
+           // if (mImageFirebaseUri != null && mAudioFirebaseUri == null && mPDF_FirebaseUri == null) {
+
+
+*/
+/*
+            if (commonUri != null ) {
                 txtMsg = AESUtils.encrypt("photo");
 
-                messageModel = new MessageModel(senderId, txtMsg, date, mImageFirebaseUri.toString());
+             //   messageModel = new MessageModel(senderId, txtMsg, date, mImageFirebaseUri.toString(), "null", "null");
+                messageModel = new MessageModel(senderId, txtMsg, date, commonUri.toString());
             }
+*//*
 
-        } else {
+
+        } */
+/*else {
+           // messageModel = new MessageModel(senderId, encryptedMsg, date, "null","null","null");
             messageModel = new MessageModel(senderId, encryptedMsg, date, "null");
             txtMsg = encryptedMsg;
+        }*//*
+
+        if (encryptedMsg.isEmpty()){
+            encryptedMsg = "document";
         }
+        messageModel = new MessageModel(senderId, txtMsg, date, commonUri.toString());
+        txtMsg = encryptedMsg;
 
         if (!txtMsg.isEmpty()) {
             MessageModel finalMessageModel = messageModel;
@@ -506,6 +587,7 @@ public void sendTextMsg(int msgAdapterPosition){
         }
     }
 
+*/
     public void openGallery(View view) {
         openFileChooser();
 
@@ -523,7 +605,8 @@ public void sendTextMsg(int msgAdapterPosition){
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-            mImageUri = data.getData();
+           // mImageUri_gallery = data.getData();
+            currentGallery_File_Uri = data.getData();
 
             // Display the selected image
             ImageView selected_image_iv = findViewById(R.id.selected_image);
@@ -531,11 +614,20 @@ public void sendTextMsg(int msgAdapterPosition){
             LinearLayout typing_space_parent = findViewById(R.id.typing_space_parent);
             selected_img_container.setVisibility(View.VISIBLE);
             typing_space_parent.setVisibility(View.GONE);
-            selected_image_iv.setImageURI(mImageUri);
+           // selected_image_iv.setImageURI(mImageUri_gallery);
+            selected_image_iv.setImageURI(currentGallery_File_Uri);
         }
         if (requestCode == REQUEST_CODE_PICK_AUDIO && resultCode == RESULT_OK) {
-            audioUri = data.getData();
-            uploadAudio(audioUri);
+          //  audioUri_gallery = data.getData();
+            currentGallery_File_Uri = data.getData();
+            //uploadAudio(audioUri_firebase);
+
+
+        }
+        if (requestCode == PICK_PDF_FILE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            //pdfUri_gallery = data.getData();
+            currentGallery_File_Uri = data.getData();
+            // Do something with the PDF Uri
         }
     }
 
@@ -559,17 +651,17 @@ public void sendTextMsg(int msgAdapterPosition){
 
     public void startRecorder(View view) {
        // startRec();
-        //ibRecord();
+       // ibRecord(); //techPro
         pickAudioFromGallery();
     }
 
     public void stopRecorder(View view) {
-       // StopRecording();
+      //  StopRecording();
     }
 
     public void playAudio(View view) {
         //startPlaying();
-        ibPlay();
+       // ibPlay();
     }
 
     public void stopPlay(View view) {
@@ -790,7 +882,7 @@ public void sendTextMsg(int msgAdapterPosition){
                         seconds = 0;
                         handler.removeCallbacksAndMessages(null);
      //                   ivSimpleBg.setVisibility(View.VISIBLE);
-   //                     lavPlaying.setVisibility(View.GONE);
+     //                     lavPlaying.setVisibility(View.GONE);
                         ibPlay.setImageDrawable(ContextCompat.getDrawable(MessagingActivity.this, R.drawable.baseline_play_circle_outline_24));//recording_play
                         return;
 
@@ -803,13 +895,6 @@ public void sendTextMsg(int msgAdapterPosition){
         });
     }
 
-    private String getRecordingFilePath() {
-
-        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-        File music = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-        File file = new File(music, "testFile" + ".mp3");
-        return file.getPath();
-    }
 
     private boolean checkRecordingPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED) {
@@ -840,37 +925,196 @@ public void sendTextMsg(int msgAdapterPosition){
     private void requestRecordingPermissins() {
         ActivityCompat.requestPermissions(MessagingActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO_PERMISSION_CODE);
     }
-    private void uploadAudio(Uri audioUri) {
-        // Get a reference to Firebase Storage
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    private static final int REQUEST_CODE_PICK_AUDIO = 1;
 
+    private void pickAudioFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_PICK_AUDIO);
+    }
+
+
+    public void select_PDF_from_gallery(View view) {
+        openFilePicker();
+    }
+    // Open the file picker when a button is clicked
+
+    private void uploadMsg_To_Rt_DB(int msgAdapterPosition, String currentGallery_File_Uri, String msg){
+       // String txtMsg = "";
+       // String msg = activityMessagingBinding.typingSpace.getText().toString().trim();
+
+        String encryptedMsg = msg;
+        try {
+            encryptedMsg = AESUtils.encrypt(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        long date = new Date().getTime();
+        MessageModel messageModel = new MessageModel();
+        activityMessagingBinding.typingSpace.setText("");
+        //uploadImage();
+/*
+        if (encryptedMsg.isEmpty()){
+            encryptedMsg = "document";
+        }
+*/
+        messageModel = new MessageModel(senderId, encryptedMsg, date, currentGallery_File_Uri);
+       // txtMsg = encryptedMsg;
+      //  if (!encryptedMsg.isEmpty()) {
+            MessageModel finalMessageModel = messageModel;
+            firebaseDatabase.getReference("Users").child(senderId).child("Contacts")
+                    .child(receiverId).child("Chats").push()
+                    .setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+
+                            activityMessagingBinding.msgRecyclerview.scrollToPosition(msgAdapterPosition);
+
+                            FcmNotificationsSender fcmNotificationsSender = new FcmNotificationsSender(receiverToken, senderName
+                                    , msg, getApplicationContext(), MessagingActivity.this);
+                            fcmNotificationsSender.SendNotifications();
+
+                            firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
+                                    .child("interactionTime").setValue(date);
+
+                            firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)
+                                    .child("interactionTime").setValue(date);
+
+
+                            firebaseDatabase.getReference("Users").child(receiverId).child("Contacts")
+                                    .child(senderId).child("Chats").push()
+                                    .setValue(finalMessageModel);
+
+
+                            firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)
+                                    .child("recentMessage").setValue(msg);
+
+                            firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
+                                    .child("recentMessage").setValue(msg);
+                            tag = "";
+                        }
+                    });
+      //  }
+
+    }
+    private void uploadImage(Uri selectedGallery_File_Uri, int msgAdapterPosition){
+        //    if (mImageUri_gallery != null) {
+
+        if (selectedGallery_File_Uri != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference("chat_images");
+
+            StorageReference fileReference = storageRef.child(System.currentTimeMillis()
+                    + "." + getFileExtension(selectedGallery_File_Uri));
+/*
+            StorageReference fileReference = storageRef.child(System.currentTimeMillis()
+                    + "." + getFileExtension(mImageUri_gallery));
+*/
+
+            //   fileReference.putFile(mImageUri_gallery)
+            fileReference.putFile(selectedGallery_File_Uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Hide the progress bar and show a success message
+                            progressDialog.dismiss();
+                            Toast.makeText(MessagingActivity.this, "Image Upload successful", Toast.LENGTH_SHORT).show();
+
+                            // Get the download URL of the image
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // mImageFirebaseUri = uri;
+                                    //commonUri_firebase = uri.toString()+".img";
+                                    String current_File_FirebaseUri = uri.toString()+".img";
+                                    uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"image");
+
+                                    //mImageUri_gallery = null;
+                                    currentGallery_File_Uri = null;
+
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Hide the progress bar and show an error message
+                            progressDialog.dismiss();
+                            Toast.makeText(MessagingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Show the upload progress
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                        }
+                    });
+
+            ////////
+            // if (mImageFirebaseUri != null && mAudioFirebaseUri == null && mPDF_FirebaseUri == null) {
+
+
+/*
+            if (commonUri != null ) {
+                txtMsg = AESUtils.encrypt("photo");
+
+             //   messageModel = new MessageModel(senderId, txtMsg, date, mImageFirebaseUri.toString(), "null", "null");
+                messageModel = new MessageModel(senderId, txtMsg, date, commonUri.toString());
+            }
+*/
+
+        } /*else {
+           // messageModel = new MessageModel(senderId, encryptedMsg, date, "null","null","null");
+            messageModel = new MessageModel(senderId, encryptedMsg, date, "null");
+            txtMsg = encryptedMsg;
+        }*/
+
+    }
+    private void uploadPDF(Uri pdfUri , int msgAdapterPosition) {
         // Generate a unique filename for the audio file
         String filename = UUID.randomUUID().toString();
 
         // Create a reference to the audio file in Firebase Storage
         //StorageReference audioRef = storageRef.child("audio/" + filename);
-        StorageReference audioRef =  FirebaseStorage.getInstance().getReference("chat_audio");
-        StorageReference fileReference = audioRef.child(System.currentTimeMillis()+"."+filename);
+        StorageReference pdf_Ref =  FirebaseStorage.getInstance().getReference("chat_pdf");
+        StorageReference fileReference = pdf_Ref.child(System.currentTimeMillis()+"."+filename+".pdf");
 
 
-                // Upload the audio file to Firebase Storage
-        fileReference.putFile(audioUri)
+        // Upload the audio file to Firebase Storage
+        fileReference.putFile(pdfUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get the download URL of the audio file
-                        audioRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                Toast.makeText(MessagingActivity.this, " pdf Uploaded successful", Toast.LENGTH_SHORT).show();
+                                // pdfUri_gallery = null;
+                                //mPDF_FirebaseUri = uri;
+                                // commonUri_firebase = uri.toString()+".pdf";
+                                String current_File_FirebaseUri = uri.toString()+".pdf";
+                                uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"pdf");
+
+                                currentGallery_File_Uri = null;
+                                //pdfUri_gallery = null;
                                 // Store the download URL in Firebase Realtime Database
-                                FirebaseDatabase.getInstance().getReference("audios")
+/*
+                                FirebaseDatabase.getInstance().getReference("pdf_files")
                                         .push().setValue(uri.toString())
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 // Audio upload and storage successful
-                                                Toast.makeText(MessagingActivity.this, " Audio Uploaded successful", Toast.LENGTH_SHORT).show();
-
+                                                Toast.makeText(MessagingActivity.this, " pdf Uploaded successful", Toast.LENGTH_SHORT).show();
+                                                pdfUri_gallery = null;
+                                                mPDF_FirebaseUri = uri;
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -879,6 +1123,7 @@ public void sendTextMsg(int msgAdapterPosition){
                                                 // Audio storage failed
                                             }
                                         });
+*/
                             }
                         });
                     }
@@ -890,14 +1135,91 @@ public void sendTextMsg(int msgAdapterPosition){
                     }
                 });
     }
-    private static final int REQUEST_CODE_PICK_AUDIO = 1;
+    private void uploadAudio(Uri audioUri,int msgAdapterPosition) {
+        // Generate a unique filename for the audio file
+        String filename = UUID.randomUUID().toString();
 
-    private void pickAudioFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_CODE_PICK_AUDIO);
+        // Get a reference to Firebase Storage
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+        // Create a reference to the audio file in Firebase Storage
+        //StorageReference audioRef = storageRef.child("audio/" + filename);
+        StorageReference audioRef =  FirebaseStorage.getInstance().getReference("chat_audio");
+        StorageReference fileReference = audioRef.child(System.currentTimeMillis()+"."+filename);
+
+
+        // Upload the audio file to Firebase Storage
+        fileReference.putFile(audioUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get the download URL of the audio file
+                        fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Toast.makeText(MessagingActivity.this, " Audio Uploaded successful", Toast.LENGTH_SHORT).show();
+                                //  mAudioFirebaseUri = uri;
+                                //  commonUri_firebase = uri.toString()+".mp3";
+                               String current_File_FirebaseUri = uri.toString()+".mp3";
+                                uploadMsg_To_Rt_DB(msgAdapterPosition,current_File_FirebaseUri.toString(),"voice");
+
+                                currentGallery_File_Uri = null;
+                                //  audioUri_gallery = null;
+
+                                // Store the download URL in Firebase Realtime Database
+/*
+                                FirebaseDatabase.getInstance().getReference("audios")
+                                        .push().setValue(uri.toString())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // Audio upload and storage successful
+                                                Toast.makeText(MessagingActivity.this, " Audio Uploaded successful", Toast.LENGTH_SHORT).show();
+                                                audioUri_gallery = null;
+                                                mAudioFirebaseUri = uri;
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Audio storage failed
+                                            }
+                                        });
+*/
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Audio upload failed
+                    }
+                });
     }
 
+    private void openFileChooser() {
+        tag = "image";
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        //  uploadFile();
+
+    }
+    private void openFilePicker() {
+        tag = "pdf";
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/pdf");
+        startActivityForResult(intent, PICK_PDF_FILE);
+    }
+    private String getRecordingFilePath() {
+        tag = "audio";
+        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+        File music = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+        File file = new File(music, "testFile" + ".mp3");
+        return file.getPath();
+
+    }
 
 
 }
