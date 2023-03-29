@@ -1,11 +1,14 @@
-package adapters;
+package com.example.adapters;
 
 
 import static android.content.ContentValues.TAG;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +25,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.R;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -104,6 +113,38 @@ public class messageAdapter extends RecyclerView.Adapter {
                     ((OutgoingViewholder) holder).outgoing_play.setVisibility(View.GONE);
                 }
             });
+            ((OutgoingViewholder) holder).outgoing_pdf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    String pdfUrl = msgData.get(position).getImageUri();
+
+                    StorageReference pdf_Ref =  storage.getInstance().getReference("chat_pdf");
+                    StorageReference fileReference = pdf_Ref.getStorage().getReferenceFromUrl(pdfUrl);
+
+
+
+                    //String pdfUrl = "https://firebasestorage.googleapis.com/v0/b/YOUR_BUCKET_NAME/o/YOUR_PDF_FILE_NAME.pdf";
+
+                    File localFile = new File(context.getExternalFilesDir(null), FirebaseStorage.getInstance().toString()+".pdf");
+
+
+                    fileReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            // File downloaded successfully
+                            // You can now use the localFile to open and display the PDF
+                            //openPdf(localFile);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                        }
+                    });
+
+                }
+            });
             ((OutgoingViewholder) holder).outgoing_pause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -160,7 +201,7 @@ public class messageAdapter extends RecyclerView.Adapter {
 
                 }
             });
-///////////////////////////////////////////////////
+//
         } else {
 
             ((IncomingViewholder) holder).incomingMsg.setText(msgData.get(position).getMsgText());
@@ -183,6 +224,38 @@ public class messageAdapter extends RecyclerView.Adapter {
                     play(position);
                     ((IncomingViewholder) holder).incoming_pause.setVisibility(View.VISIBLE);
                     ((IncomingViewholder) holder).incoming_play.setVisibility(View.GONE);
+                }
+            });
+            ((IncomingViewholder) holder).incoming_pdf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    String pdfUrl = msgData.get(position).getImageUri();
+
+                    StorageReference pdf_Ref =  storage.getInstance().getReference("chat_pdf");
+                    StorageReference fileReference = pdf_Ref.getStorage().getReferenceFromUrl(pdfUrl);
+
+
+
+                    //String pdfUrl = "https://firebasestorage.googleapis.com/v0/b/YOUR_BUCKET_NAME/o/YOUR_PDF_FILE_NAME.pdf";
+
+                    File localFile = new File(context.getExternalFilesDir(null), FirebaseStorage.getInstance().toString()+".pdf");
+
+
+                    fileReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            // File downloaded successfully
+                            // You can now use the localFile to open and display the PDF
+                            //openPdf(localFile);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                        }
+                    });
+
                 }
             });
             ((IncomingViewholder) holder).incoming_pause.setOnClickListener(new View.OnClickListener() {
@@ -239,10 +312,19 @@ public class messageAdapter extends RecyclerView.Adapter {
 
                 }
             });
-
         }
+    }
 
-
+    private void openPdf(File pdfFile) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intentChooser = Intent.createChooser(intent, "Open PDF");
+        try {
+            context.startActivity(intentChooser);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(context.getApplicationContext(), "No application found to open PDF", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void pause(int position) {

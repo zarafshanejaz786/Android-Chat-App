@@ -92,7 +92,8 @@ public class SigninActivity extends AppCompatActivity {
 
 
 
-                                        Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                                       // Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(SigninActivity.this, Select_User_Type_Activity.class);
                                         startActivity(intent);
 
                                     } else {

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pat_HomeActivity"
+    android:id="@+id/main_container">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_header_selector_light"
+    android:id="@+id/ui_container">
+
+
+
+    <LinearLayout
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        android:background="@drawable/rectangle_round"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome User"
+            android:textColor="#ffffff"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose an option"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="481dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.084"
+        tools:layout_editor_absoluteX="0dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:id="@+id/searchBtn"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/button_home"
+                android:text="Search"
+                android:textColor="#22BE87"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnRequst"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/button_home"
+                android:text="Medical Folder"
+                android:textColor="#22BE87"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/myDoctors"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:background="@drawable/button_home"
+                android:text="My Doctors"
+                android:textColor="#22BE87"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+
+            >
+
+
+            <Button
+                android:id="@+id/appointement2"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/button_home"
+                android:text="Appointement"
+                android:textColor="#22BE87"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/myChatBtn"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/button_home"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="My Chat"
+                android:textAllCaps="false"
+                android:textColor="#22BE87"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/profile"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:background="@drawable/button_home"
+                android:gravity="center"
+                android:text="Profile"
+                android:textColor="#22BE87"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/signOutBtn"
+            android:layout_width="211dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:text="SignOut"
+            android:textColor="#C62828"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-2dp"
+            android:layout_marginBottom="73dp"
+            android:textColor="@color/grey"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:text="Demo Build"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

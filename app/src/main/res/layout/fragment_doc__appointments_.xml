@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Doc_Appointments_Fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Appointments"
+            android:layout_marginBottom="20dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/DoctorAppointement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="5"
+            tools:listitem="@layout/doctor_appointement_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+</FrameLayout>

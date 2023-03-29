@@ -5,5 +5,19 @@
     <!--
     <string name="default_web_client_id">408918460561-tgppo1esa9b6rq05anjmtgqb6ggu3qak.apps.googleusercontent.com</string>
 -->
+    <string-array name="fiche_type">
+        <item>Consultation</item>
+        <item>Hospitalisation</item>
+    </string-array>
+    <string-array name="blood_spinner">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
 
 </resources>

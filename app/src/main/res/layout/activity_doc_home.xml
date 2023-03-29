@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_header_selector_light"
+    android:id="@+id/doc_home_main_container"
+    tools:context=".Doc_HomeActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/doc_home_ui_container"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:background="@drawable/rectangle_round"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/home_text"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+
+                    android:layout_marginBottom="156dp"
+                    android:gravity="center_horizontal"
+                    android:text="Home"
+                    android:textColor="#ffffff"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/doctorName"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="79dp"
+                    android:text="Welcome Doctor"
+                    android:textColor="#ffffff"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="55dp"
+                    android:text="How we can help you oday?"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/listPatients"
+                    android:layout_width="105dp"
+                    android:layout_height="96dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/button_home"
+                    android:text="My Patients"
+                    android:textColor="#22BE87"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/appointement"
+                    android:layout_width="105dp"
+                    android:layout_height="96dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/button_home"
+                    android:text="Appointements"
+                    android:textColor="#22BE87"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/profile"
+                    android:layout_width="105dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/button_home"
+                    android:text="My profile"
+                    android:textColor="#22BE87"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+
+                >
+
+
+                <Button
+                    android:id="@+id/btnRequst"
+                    android:layout_width="105dp"
+                    android:layout_height="96dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/button_home"
+                    android:text="Patient Requests"
+                    android:textColor="#22BE87"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/myCalendarBtn"
+                    android:layout_width="105dp"
+                    android:layout_height="96dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/button_home"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="My Calendar"
+                    android:textAllCaps="false"
+                    android:textColor="#22BE87"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/myChatBtn"
+                    android:layout_width="105dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/button_home"
+                    android:gravity="center"
+                    android:text="My Chat"
+                    android:textColor="#22BE87"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/signOutBtn"
+                android:layout_width="211dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:text="SignOut"
+                android:textColor="#C62828"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="-2dp"
+                android:layout_marginBottom="73dp"
+                android:textColor="@color/grey"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"
+                android:text="Demo Build"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <!-->>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,7 +52,8 @@ public class SignupActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         if(myAuth.getCurrentUser()!=null){
-            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+            //Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+            Intent intent = new Intent(SignupActivity.this,Select_User_Type_Activity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
             finish();
@@ -83,10 +84,14 @@ public class SignupActivity extends AppCompatActivity {
                 String email =  activitySignupBinding.mail.getText().toString().trim();
                 String password = activitySignupBinding.password.getText().toString().trim();
                 String userName = activitySignupBinding.username.getText().toString().trim();
+                String last_name = activitySignupBinding.lastName.getText().toString().trim();
+                String phone = activitySignupBinding.phone.getText().toString().trim();
+                String address = activitySignupBinding.address.getText().toString().trim();
+
                 String about = "online";
 
-                if(!email.isEmpty() && !password.isEmpty() && !userName.isEmpty())
-                    signupUser(email,password, userName,about);
+                if(!email.isEmpty() && !password.isEmpty() && !userName.isEmpty() && !last_name.isEmpty() && !address.isEmpty() && !phone.isEmpty())
+                    signupUser(email,password, userName,about,last_name,address,phone);
                 else
                     Toast.makeText(SignupActivity.this, "Enter details", Toast.LENGTH_SHORT).show();
             }
@@ -114,6 +119,7 @@ public class SignupActivity extends AppCompatActivity {
 
         //      Signin with google
 
+/*
         activitySignupBinding.googleSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +134,7 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
+*/
 
 
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -217,7 +224,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-    private void signupUser(String email, String password, String userName, String about){
+    private void signupUser(String email, String password, String userName, String about, String last_name, String address, String phone){
 
         activitySignupBinding.progressBar.setVisibility(View.VISIBLE);
 
@@ -233,7 +240,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-                                        UserModel userModel = new UserModel(userName,email,password,"R.drawable.user",about);
+                                       // UserModel userModel = new UserModel(userName,email,password,"R.drawable.user",about);
+                                        UserModel userModel = new UserModel(userName,email,password,"R.drawable.user",about,address,phone,last_name);
 
                                         sharedPreferences = getSharedPreferences("SavedToken",MODE_PRIVATE);
                                         String tokenInMain =  sharedPreferences.getString("ntoken","mynull");
@@ -243,16 +251,12 @@ public class SignupActivity extends AppCompatActivity {
                                                 .child(id2)
                                                 .setValue(userModel);
 
+                            Toast.makeText(SignupActivity.this, "SignUp Successful"+task.getException().getLocalizedMessage(),
+                                    Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+
+                                    Intent intent = new Intent(SignupActivity.this,Select_User_Type_Activity.class);
                             startActivity(intent);
-
-
-
-
-
-
-
                         } else {
                             Toast.makeText(SignupActivity.this, "SignUp failed "+task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();

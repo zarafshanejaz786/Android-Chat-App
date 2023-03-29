@@ -57,7 +57,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import adapters.messageAdapter;
+import com.example.adapters.messageAdapter;
 import models.MessageModel;
 
 public class MessagingActivity extends AppCompatActivity {

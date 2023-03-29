@@ -2,10 +2,8 @@ package com.example.chatapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import adapters.chatPageAdapter;
+import com.example.adapters.chatPageAdapter;
 import models.UserModel;
 
 
@@ -210,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finishAffinity();
+      //  finishAffinity();
     }
 
     public boolean isOnline() {

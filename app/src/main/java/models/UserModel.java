@@ -4,8 +4,9 @@ import com.example.chatapp.R;
 
 public class UserModel {
 
-    String profilePic = "R.drawable.user", userName, userMail, userId, userPassword = "null", recentMessage, about, token;
+    String profilePic = "R.drawable.user", userName, userMail, userId, userPassword = "null", recentMessage, about, token,address, phone,last_name;
     long  recentMsgTime;
+
 
     public UserModel(String profilePic, String userName, String userMail, String userId, String userPassword, String about) {
         this.profilePic = profilePic;
@@ -16,6 +17,40 @@ public class UserModel {
         this.about = about;
     }
 
+    public UserModel( String userName, String userMail, String userId, String userPassword, String about, String address, String phone, String last_name) {
+        this.userName = userName;
+        this.userMail = userMail;
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.about = about;
+        this.address = address;
+        this.phone = phone;
+        this.last_name = last_name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
 
     // For storing in DB
     public UserModel(String userName, String userMail, String userPassword, String profilePic, String about){

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -37,6 +38,7 @@ public class ProfileFragment extends Fragment {
    FragmentProfileBinding binding;
    FragmentManager fragmentManager;
    FirebaseStorage firebaseStorage;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -84,9 +86,6 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         String ss = binding.edittext.getText().toString().trim();
-
-
-
 
                         firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("userName").setValue(ss).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -137,6 +136,7 @@ public class ProfileFragment extends Fragment {
 
 
 
+/*
         binding.newPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +150,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+*/
 
 
 
@@ -163,9 +164,11 @@ public class ProfileFragment extends Fragment {
                         String uPic = snapshot.child("profilePic").getValue().toString();
                         String uAbout = snapshot.child("about").getValue().toString();
 
+/*
                         Picasso.get().load(uPic).error(R.drawable.user)
                                 .placeholder(R.drawable.user).centerCrop().fit()
                                 .into(binding.profilePicImageview);
+*/
 
                         binding.username.setText(uName);
                         binding.usermail.setText(uMail);
@@ -193,7 +196,7 @@ public class ProfileFragment extends Fragment {
                     Uri resultUri = result.getUri();
 
 
-                    Picasso.get().load(resultUri).fit().centerCrop().into(binding.profilePicImageview);
+//                    Picasso.get().load(resultUri).fit().centerCrop().into(binding.profilePicImageview);
 
                     final StorageReference storageRef = firebaseStorage.getReference().child("Profile pictures").child(firebaseAuth.getUid());
                     storageRef.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
