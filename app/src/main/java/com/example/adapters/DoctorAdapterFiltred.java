@@ -64,7 +64,7 @@ public class DoctorAdapterFiltred extends RecyclerView.Adapter<DoctorAdapterFilt
         doctoreHolder.title.setText(doctor.getName());
         /// ajouter l'image
 
-        String imageId = doctor.getEmail()+".jpg";
+    /*    String imageId = doctor.getEmail()+".jpg";
         pathReference = FirebaseStorage.getInstance().getReference().child("DoctorProfile/"+ imageId);
         pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -83,8 +83,8 @@ public class DoctorAdapterFiltred extends RecyclerView.Adapter<DoctorAdapterFilt
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
             }
-        });
-        doctoreHolder.specialite.setText("Specialite : "+doctor.getSpecialite());
+        });*/
+        doctoreHolder.specialite.setText("Specialite : "+doctor.getSpeciality());
         final String idPat = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
         final String idDoc = doctor.getEmail();
         // doctoreHolder.image.setImageURI(Uri.parse("drawable-v24/ic_launcher_foreground.xml"));
@@ -140,7 +140,7 @@ public class DoctorAdapterFiltred extends RecyclerView.Adapter<DoctorAdapterFilt
                             }
                         }
                         else{
-                            if (tube.getSpecialite().toLowerCase().contains(pattern) || tube.getSpecialite().toLowerCase().contains(pattern)) {
+                            if (tube.getSpeciality().toLowerCase().contains(pattern) || tube.getSpeciality().toLowerCase().contains(pattern)) {
                                 filteredList.add(tube);
                             }
                         }
@@ -173,8 +173,8 @@ public class DoctorAdapterFiltred extends RecyclerView.Adapter<DoctorAdapterFilt
             addDoc = itemView.findViewById(R.id.addDocBtn);
             title= itemView.findViewById(R.id.doctor_view_title);
             specialite=itemView.findViewById(R.id.text_view_description);
-            image=itemView.findViewById(R.id.doctor_item_image);
-            appointemenBtn=itemView.findViewById(R.id.appointemenBtn);
+           // image=itemView.findViewById(R.id.doctor_item_image);
+            appointemenBtn=itemView.findViewById(R.id.bookAppointmentBtn);
         }
     }
     private void openPage(Context wf){

@@ -41,6 +41,9 @@
             android:name=".DossierMedical"
             android:exported="false" />
         <activity
+            android:name=".RegisteredDoctorsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Pat_HomeActivity"
             android:exported="false" />
         <activity

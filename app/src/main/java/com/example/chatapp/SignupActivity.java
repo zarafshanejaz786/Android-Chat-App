@@ -43,7 +43,6 @@ public class SignupActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> activityResultLauncher;
     SharedPreferences sharedPreferences;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if(myAuth.getCurrentUser()!=null){
             //Intent intent = new Intent(SignupActivity.this,MainActivity.class);
-            Intent intent = new Intent(SignupActivity.this,Select_User_Type_Activity.class);
+            Intent intent = new Intent(SignupActivity.this,Pat_HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
             finish();
@@ -255,7 +254,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
 
-                                    Intent intent = new Intent(SignupActivity.this,Select_User_Type_Activity.class);
+                                    Intent intent = new Intent(SignupActivity.this,Pat_HomeActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(SignupActivity.this, "SignUp failed "+task.getException().getLocalizedMessage(),

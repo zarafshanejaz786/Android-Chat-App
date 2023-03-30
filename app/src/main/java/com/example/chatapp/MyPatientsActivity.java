@@ -29,9 +29,7 @@ import java.util.ArrayList;
 import models.Patient;
 
 public class MyPatientsActivity extends AppCompatActivity {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference myPatientsRef = db.collection("doctor");
-    private MyPatientsAdapter adapter;
+
     private Simp_myPatientsAdapter simp_adapter;
 
     Context context =  MyPatientsActivity.this;
@@ -39,34 +37,7 @@ public class MyPatientsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_patients);
-        setUpRecyclerView();
-
-    }
-
-    public void setUpRecyclerView(){
-
-       /* final String doctorID = FirebaseAuth.getInstance().getCurrentUser().getEmail().toString();
-        Query query = myPatientsRef.document(""+doctorID+"")
-                .collection("MyPatients").orderBy("name", Query.Direction.DESCENDING);
-*/
-      /*  final String doctorID = FirebaseAuth.getInstance().getUid().toString();
-        Query query = myPatientsRef.document(""+doctorID+"")
-                .collection("MyPatients").orderBy("name", Query.Direction.DESCENDING);
-
-
-        FirestoreRecyclerOptions<Patient> options = new FirestoreRecyclerOptions.Builder<Patient>()
-                .setQuery(query, Patient.class)
-                .build();
-       // testIt();
-        adapter = new MyPatientsAdapter(options);
-        //ListMyPatients
-        RecyclerView recyclerView = findViewById(R.id.ListMyPatients);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);*/
-
-        testIt();
-
+        setupPatientsList();
     }
 
     @Override
@@ -80,22 +51,7 @@ public class MyPatientsActivity extends AppCompatActivity {
         super.onStop();
         //adapter.stopListening();
     }
-    private void fetchData(){
-        FirebaseAuth   firebaseAuth = FirebaseAuth.getInstance();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference myPatientsRef = db.collection("doctor").document(firebaseAuth.getUid()).collection("MyPatients");
-
-        Query query = myPatientsRef.orderBy("name", Query.Direction.DESCENDING);
-
-        FirestoreRecyclerOptions<Patient> options = new FirestoreRecyclerOptions.Builder<Patient>()
-                .setQuery(query, Patient.class)
-                .build();
-
-        // adapter = new MyPatientsAdapter(options);
-
-    }
-    private void testIt(){
+    private void setupPatientsList(){
         ArrayList<Patient> patientsList = new ArrayList<>();
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -130,3 +86,4 @@ public class MyPatientsActivity extends AppCompatActivity {
         });
     }
 }
+

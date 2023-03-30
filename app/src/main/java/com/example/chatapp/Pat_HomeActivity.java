@@ -45,7 +45,8 @@ public class Pat_HomeActivity extends AppCompatActivity {
         searchPatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent k = new Intent(Pat_HomeActivity.this, SearchPatActivity.class);
+               // Intent k = new Intent(Pat_HomeActivity.this, SearchPatActivity.class);
+                Intent k = new Intent(Pat_HomeActivity.this, RegisteredDoctorsActivity.class);
                 startActivity(k);
             }
         });
