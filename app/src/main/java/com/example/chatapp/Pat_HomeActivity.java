@@ -24,7 +24,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
     Button myChatBtn;
     Button profile;
     ConstraintLayout main_container,ui_container;
-    Button appointment;
+   // Button appointment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
@@ -34,7 +34,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pat_home);
         fragmentManager = getSupportFragmentManager();
 
-        appointment = findViewById(R.id.appointement_p);
+       // appointment = findViewById(R.id.appointement_p);
         SignOutBtn=findViewById(R.id.signOutBtn);
         myDoctors = (Button)findViewById(R.id.myDoctors);
       //  BtnRequst = findViewById(R.id.btnRequst);
@@ -44,6 +44,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
         searchPatBtn = (Button)findViewById(R.id.searchBtn);
         myChatBtn = (Button)findViewById(R.id.myChatBtn);
 
+/*
         appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +52,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
                 startActivity(k);
             }
         });
+*/
         searchPatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

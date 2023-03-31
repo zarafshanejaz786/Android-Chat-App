@@ -157,6 +157,7 @@
                 android:textSize="13sp"
                 />
         </LinearLayout>
+<!--
         <Button
             android:id="@+id/appointement_p"
             android:layout_width="211dp"
@@ -166,6 +167,7 @@
             android:textSize="16sp"
             android:padding="5dp"
             />
+-->
 
         <Button
             android:id="@+id/signOutBtn"
@@ -173,7 +175,6 @@
             android:layout_height="45dp"
             android:text="SignOut"
             android:textColor="#14805a"
-            android:background="#00000"
             android:textSize="16sp"
             android:padding="5dp"
             />
