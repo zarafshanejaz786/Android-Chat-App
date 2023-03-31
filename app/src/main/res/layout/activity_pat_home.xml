@@ -48,7 +48,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="481dp"
+        android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
 
@@ -157,14 +157,23 @@
                 android:textSize="13sp"
                 />
         </LinearLayout>
+        <Button
+            android:id="@+id/appointement_p"
+            android:layout_width="211dp"
+            android:layout_height="45dp"
+            android:text="Chat History"
+            android:textColor="#14805a"
+            android:textSize="16sp"
+            android:padding="5dp"
+            />
 
         <Button
             android:id="@+id/signOutBtn"
             android:layout_width="211dp"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
             android:text="SignOut"
             android:textColor="#14805a"
+            android:background="#00000"
             android:textSize="16sp"
             android:padding="5dp"
             />

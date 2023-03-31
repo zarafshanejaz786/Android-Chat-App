@@ -34,11 +34,11 @@ public class Pat_HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pat_home);
         fragmentManager = getSupportFragmentManager();
 
-        appointment = findViewById(R.id.appointement2);
+        appointment = findViewById(R.id.appointement_p);
         SignOutBtn=findViewById(R.id.signOutBtn);
         myDoctors = (Button)findViewById(R.id.myDoctors);
-        BtnRequst = findViewById(R.id.btnRequst);
-        profile = findViewById(R.id.profile);
+      //  BtnRequst = findViewById(R.id.btnRequst);
+        profile = findViewById(R.id.btn_profile);
         ui_container = findViewById(R.id.ui_container);
         main_container = findViewById(R.id.main_container);
         searchPatBtn = (Button)findViewById(R.id.searchBtn);
@@ -95,6 +95,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
             }
         });
 
+/*
         BtnRequst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +104,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+*/
 
 
         profile.setOnClickListener(new View.OnClickListener() {
