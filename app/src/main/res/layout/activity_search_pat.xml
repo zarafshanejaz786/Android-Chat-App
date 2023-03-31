@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         app:titleTextColor="@android:color/white"
         app:subtitleTextColor="@android:color/white"
-        android:background="#22BE87"/>
+        android:background="#14805a"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/serachPatRecycle"

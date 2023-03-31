@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,10 +21,11 @@ public class Pat_HomeActivity extends AppCompatActivity {
     Button SignOutBtn;
     Button searchPatBtn;
     Button myDoctors;
-    Button BtnRequst;
+    Button btn_view_your_record;
     Button profile;
     ConstraintLayout main_container,ui_container;
-    Button appointment;
+    Button btn_order_lab;
+    Button btn_order_medication;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
@@ -33,14 +35,25 @@ public class Pat_HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pat_home);
         fragmentManager = getSupportFragmentManager();
 
-        appointment = findViewById(R.id.appointement2);
-        appointment.setOnClickListener(new View.OnClickListener() {
+        btn_order_lab = findViewById(R.id.btn_order_lab);
+        btn_order_lab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent k = new Intent(Pat_HomeActivity.this, PatientAppointementsActivity.class);
-                startActivity(k);
+//                Intent k = new Intent(Pat_HomeActivity.this, PatientAppointementsActivity.class);
+//                startActivity(k);
+                Toast.makeText(Pat_HomeActivity.this,"Order Labs",Toast.LENGTH_LONG).show();
             }
         });
+        btn_order_medication = findViewById(R.id.btn_order_medication);
+        btn_order_medication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent k = new Intent(Pat_HomeActivity.this, PatientAppointementsActivity.class);
+//                startActivity(k);
+                Toast.makeText(Pat_HomeActivity.this,"Order Medications",Toast.LENGTH_LONG).show();
+            }
+        });
+
         searchPatBtn = (Button)findViewById(R.id.searchBtn);
         searchPatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +68,10 @@ public class Pat_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+                Pat_HomeActivity.this.finish();
             }
         });
 
@@ -69,17 +83,18 @@ public class Pat_HomeActivity extends AppCompatActivity {
                 startActivity(k);
             }
         });
-        BtnRequst = findViewById(R.id.btnRequst);
-        BtnRequst.setOnClickListener(new View.OnClickListener() {
+        btn_view_your_record = findViewById(R.id.btn_view_your_record);
+        btn_view_your_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DossierMedical.class);
-                intent.putExtra("patient_email",FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), DossierMedical.class);
+//                intent.putExtra("patient_email",FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
+//                startActivity(intent);
+                Toast.makeText(Pat_HomeActivity.this,"Your Records",Toast.LENGTH_LONG).show();
             }
         });
 
-        profile = findViewById(R.id.profile);
+        profile = findViewById(R.id.btn_profile);
         ui_container = findViewById(R.id.ui_container);
         main_container = findViewById(R.id.main_container);
         profile.setOnClickListener(new View.OnClickListener() {

@@ -246,7 +246,8 @@
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="8dp"
                 app:strokeColor="?attr/colorSecondary"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="2dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -259,6 +260,7 @@
                 android:text="Demo Build"
                 android:textColor="@color/grey"
                 android:textSize="20dp"
+                android:layout_marginTop="15dp"
                 android:visibility="visible" />
 
 

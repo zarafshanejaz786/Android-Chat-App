@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="-2dp"
-            android:background="#22BE87"
+            android:background="#14805a"
             android:minHeight="?attr/actionBarSize"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
@@ -124,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_baseline_edit_24"
-                    android:text="Username"
+                    android:text=""
                     android:textSize="24sp" />
 
 
@@ -159,7 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_baseline_edit_24"
-                    android:text="Username"
+                    android:text=""
                     android:textSize="24sp" />
 
 
@@ -198,7 +198,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_baseline_edit_24"
-                    android:text="Online"
+                    android:text=""
                     android:textSize="24sp"
 
                     />
@@ -226,7 +226,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mail id"
+                    android:text="Email"
                     android:textSize="18dp" />
 
                 <TextView
@@ -234,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/username"
-                    android:text="User Mail"
+                    android:text=""
                     android:textSize="24sp" />
 
             </LinearLayout>
@@ -247,7 +247,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="10dp"
                 android:text="user id"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

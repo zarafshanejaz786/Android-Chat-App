@@ -52,7 +52,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if(myAuth.getCurrentUser()!=null){
             //Intent intent = new Intent(SignupActivity.this,MainActivity.class);
-            Intent intent = new Intent(SignupActivity.this,Pat_HomeActivity.class);
+            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
             finish();
@@ -111,6 +111,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignupActivity.this,SigninActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -254,7 +255,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
 
-                                    Intent intent = new Intent(SignupActivity.this,Pat_HomeActivity.class);
+                                    Intent intent = new Intent(SignupActivity.this,MainActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(SignupActivity.this, "SignUp failed "+task.getException().getLocalizedMessage(),

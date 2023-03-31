@@ -38,7 +38,7 @@
             android:maxLines="1"
             android:text="Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#22BE87" />
+            android:textColor="#14805a" />
 
         <TextView
             android:id="@+id/doc_description"
@@ -82,6 +82,7 @@
             android:background="@drawable/button_green"
             android:text="Request For Appointment"
             android:textColor="#fff"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:visibility="gone"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
