@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome User"
+            android:text="Patient Home"
             android:textColor="#ffffff"
             android:textSize="26sp" />
 
@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:text="Choose an option"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
@@ -73,18 +74,8 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/button_home"
                 android:text="Search\nDoctor"
-                android:textColor="#22BE87"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnRequst"
-                android:layout_width="105dp"
-                android:layout_height="96dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/button_home"
-                android:text="Medical Folder"
-                android:textColor="#22BE87"
-                android:textSize="16sp" />
+                android:textColor="#14805a"
+                android:textSize="13sp" />
 
             <Button
                 android:id="@+id/myDoctors"
@@ -92,8 +83,35 @@
                 android:layout_height="96dp"
                 android:background="@drawable/button_home"
                 android:text="My Doctors"
-                android:textColor="#22BE87"
-                android:textSize="13sp" />
+                android:textColor="#14805a"
+                android:textSize="13sp"
+                android:layout_marginRight="15dp"/>
+
+            <Button
+                android:id="@+id/myChatBtn"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/button_home"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="My Chat"
+                android:textAllCaps="false"
+                android:textColor="#14805a"
+                android:textSize="13sp"
+
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/btn_profile"
+                android:layout_width="105dp"
+                android:layout_height="96dp"
+                android:background="@drawable/button_home"
+                android:gravity="center"
+                android:text="Profile"
+                android:textColor="#14805a"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,40 +127,35 @@
 
 
             <Button
-                android:id="@+id/appointement2"
+                android:id="@+id/btn_view_your_record"
                 android:layout_width="105dp"
                 android:layout_height="96dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/button_home"
-                android:text="Appointement"
-                android:textColor="#22BE87"
+                android:text="View your records"
+                android:textColor="#14805a"
                 android:textSize="13sp" />
 
             <Button
-                android:id="@+id/myChatBtn"
+                android:id="@+id/btn_order_lab"
                 android:layout_width="105dp"
                 android:layout_height="96dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/button_home"
-                android:fontFamily="@font/roboto"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:text="My Chat"
-                android:textAllCaps="false"
-                android:textColor="#22BE87"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="Order Labs"
+                android:textColor="#14805a"
+                android:textSize="13sp" />
 
             <Button
-                android:id="@+id/profile"
+                android:id="@+id/btn_order_medication"
                 android:layout_width="105dp"
                 android:layout_height="96dp"
                 android:background="@drawable/button_home"
                 android:gravity="center"
-                android:text="Profile"
-                android:textColor="#22BE87"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="Order Medications"
+                android:textColor="#14805a"
+                android:textSize="13sp"
+                />
         </LinearLayout>
 
         <Button
@@ -151,8 +164,9 @@
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:text="SignOut"
-            android:textColor="#C62828"
+            android:textColor="#14805a"
             android:textSize="16sp"
+            android:padding="5dp"
             />
         <TextView
             android:layout_width="match_parent"
@@ -161,6 +175,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="-2dp"
             android:layout_marginBottom="73dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/grey"
             android:textSize="20dp"
             android:gravity="center_horizontal"

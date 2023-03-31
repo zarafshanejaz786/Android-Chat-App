@@ -80,7 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="15dp">
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
@@ -88,18 +89,17 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                tools:ignore="MissingConstraints">
+                android:paddingEnd="15dp">
 
                 <Button
                     android:id="@+id/listPatients"
-                    android:layout_width="105dp"
+                    android:layout_width="match_parent"
                     android:layout_height="96dp"
-                    android:layout_marginRight="15dp"
+
                     android:background="@drawable/button_home"
                     android:text="My Patients"
-                    android:textColor="#22BE87"
-                    android:textSize="16sp" />
+                    android:textColor="#14805a"
+                    android:textSize="13sp" />
 
                 <Button
                     android:id="@+id/appointement"
@@ -108,17 +108,11 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/button_home"
                     android:text="Appointements"
-                    android:textColor="#22BE87"
-                    android:textSize="16sp" />
+                    android:textColor="#14805a"
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
 
-                <Button
-                    android:id="@+id/profile"
-                    android:layout_width="105dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/button_home"
-                    android:text="My profile"
-                    android:textColor="#22BE87"
-                    android:textSize="13sp" />
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -130,7 +124,14 @@
                 android:paddingEnd="15dp"
 
                 >
-
+                <Button
+                    android:id="@+id/profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:background="@drawable/button_home"
+                    android:text="My profile"
+                    android:textColor="#14805a"
+                    android:textSize="13sp" />
 
                 <Button
                     android:id="@+id/btnRequst"
@@ -139,8 +140,9 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/button_home"
                     android:text="Patient Requests"
-                    android:textColor="#22BE87"
-                    android:textSize="13sp" />
+                    android:textColor="#14805a"
+                    android:textSize="13sp"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/myCalendarBtn"
@@ -153,9 +155,10 @@
                     android:paddingBottom="8dp"
                     android:text="My Calendar"
                     android:textAllCaps="false"
-                    android:textColor="#22BE87"
+                    android:textColor="#14805a"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/myChatBtn"
@@ -164,9 +167,10 @@
                     android:background="@drawable/button_home"
                     android:gravity="center"
                     android:text="My Chat"
-                    android:textColor="#22BE87"
+                    android:textColor="#14805a"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <Button
@@ -175,10 +179,10 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
                 android:text="SignOut"
-                android:textColor="#C62828"
+                android:textColor="#14805a"
                 android:textSize="16sp"
+                android:padding="5dp"
                 />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -186,6 +190,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="-2dp"
                 android:layout_marginBottom="73dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/grey"
                 android:textSize="20dp"
                 android:gravity="center_horizontal"

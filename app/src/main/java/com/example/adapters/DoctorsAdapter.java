@@ -127,7 +127,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
                 .child(doctorsList.get(pos).getUid())
                 .setValue(doctor);
 
-        Toast.makeText(this.context, "SignUp Successful",
+        Toast.makeText(this.context, "Added to your doctors",
                 Toast.LENGTH_SHORT).show();
 
     }

@@ -77,6 +77,13 @@ public class SigninActivity extends AppCompatActivity {
 
             }
         });
+        activitySigninBinding.moveToSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SigninActivity.this,SignupActivity.class);
+                startActivity(intent);
+            }
+        });
 
         userType();
         activitySigninBinding.signinBtn.setOnClickListener(new View.OnClickListener() {

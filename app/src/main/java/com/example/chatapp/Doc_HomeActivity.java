@@ -51,9 +51,10 @@ public class Doc_HomeActivity extends AppCompatActivity implements DatePickerDia
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+                Doc_HomeActivity.this.finish();
             }
         });
         myCalendarBtn.setOnClickListener(new View.OnClickListener() {

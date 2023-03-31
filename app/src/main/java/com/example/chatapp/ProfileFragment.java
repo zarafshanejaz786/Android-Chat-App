@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onSuccess(Void unused) {
 
-                                Toast.makeText(getContext(), "Username editted ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Username updated ", Toast.LENGTH_SHORT).show();
                                 binding.edittext.setText("");
                                 binding.editFragContainer.setVisibility(View.GONE);
                             }
@@ -159,10 +159,11 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String uName = snapshot.child("userName").getValue().toString();
-                        String uMail = snapshot.child("userMail").getValue().toString();
-                        String uPic = snapshot.child("profilePic").getValue().toString();
-                        String uAbout = snapshot.child("about").getValue().toString();
+                        String uName = snapshot.child("userName").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
+                        String uMail = snapshot.child("userMail").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
+                        String uPic = snapshot.child("profilePic").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
+                        String uAbout = snapshot.child("about").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
+
 
 /*
                         Picasso.get().load(uPic).error(R.drawable.user)

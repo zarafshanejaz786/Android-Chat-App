@@ -40,7 +40,7 @@
             android:maxLines="1"
             android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#22BE87" />
+            android:textColor="#14805a" />
 
         <TextView
             android:id="@+id/text_view_telephone"
