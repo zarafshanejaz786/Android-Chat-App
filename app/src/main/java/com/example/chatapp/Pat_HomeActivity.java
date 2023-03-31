@@ -21,6 +21,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
     Button searchPatBtn;
     Button myDoctors;
     Button BtnRequst;
+    Button myChatBtn;
     Button profile;
     ConstraintLayout main_container,ui_container;
     Button appointment;
@@ -34,6 +35,15 @@ public class Pat_HomeActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         appointment = findViewById(R.id.appointement2);
+        SignOutBtn=findViewById(R.id.signOutBtn);
+        myDoctors = (Button)findViewById(R.id.myDoctors);
+        BtnRequst = findViewById(R.id.btnRequst);
+        profile = findViewById(R.id.profile);
+        ui_container = findViewById(R.id.ui_container);
+        main_container = findViewById(R.id.main_container);
+        searchPatBtn = (Button)findViewById(R.id.searchBtn);
+        myChatBtn = (Button)findViewById(R.id.myChatBtn);
+
         appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +51,6 @@ public class Pat_HomeActivity extends AppCompatActivity {
                 startActivity(k);
             }
         });
-        searchPatBtn = (Button)findViewById(R.id.searchBtn);
         searchPatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +59,23 @@ public class Pat_HomeActivity extends AppCompatActivity {
                 startActivity(k);
             }
         });
-        SignOutBtn=findViewById(R.id.signOutBtn);
+
+        myChatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent k = new Intent(Pat_HomeActivity.this, MainActivity.class);
+                startActivity(k);
+               /* doc_home_ui_container.setVisibility(View.GONE);
+
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.doc_home_main_container, Doc_Appointments_Fragment.class, null)
+                        .addToBackStack(null)
+                        .commit();*/
+            }
+        });
+
+
         SignOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +86,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
             }
         });
 
-        myDoctors = (Button)findViewById(R.id.myDoctors);
+
         myDoctors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +94,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
                 startActivity(k);
             }
         });
-        BtnRequst = findViewById(R.id.btnRequst);
+
         BtnRequst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,9 +104,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
             }
         });
 
-        profile = findViewById(R.id.profile);
-        ui_container = findViewById(R.id.ui_container);
-        main_container = findViewById(R.id.main_container);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

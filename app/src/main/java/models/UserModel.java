@@ -4,7 +4,7 @@ import com.example.chatapp.R;
 
 public class UserModel {
 
-    String profilePic = "R.drawable.user", userName, userMail, userId, userPassword = "null", recentMessage, about, token,address, phone,last_name;
+    String profilePic = "R.drawable.user", userName, userMail, userId, userPassword = "null", recentMessage, about, token,address, phone,last_name, uid, userType;
     long  recentMsgTime;
 
 
@@ -17,7 +17,14 @@ public class UserModel {
         this.about = about;
     }
 
-    public UserModel( String userName, String userMail, String userId, String userPassword, String about, String address, String phone, String last_name) {
+      public UserModel(String userMail, String userId, String userPassword, String userType) {
+        this.userMail = userMail;
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.userType = userType;
+    }
+
+    public UserModel(String userName, String userMail, String userId, String userPassword, String about, String address, String phone, String last_name) {
         this.userName = userName;
         this.userMail = userMail;
         this.userId = userId;
@@ -27,7 +34,33 @@ public class UserModel {
         this.phone = phone;
         this.last_name = last_name;
     }
+    public UserModel(String userName, String userMail, String userId, String userPassword, String about, String address, String phone, String last_name, String uid, String userType) {
+        this.userName = userName;
+        this.userMail = userMail;
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.about = about;
+        this.address = address;
+        this.phone = phone;
+        this.last_name = last_name;
+        this.uid = uid;
+        this.userType = userType;
+    }
+    public String getUid() {
+        return uid;
+    }
 
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
     public String getAddress() {
         return address;
     }

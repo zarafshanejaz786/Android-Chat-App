@@ -8,8 +8,26 @@ public class Doctor {
     private String speciality;
     private String uid;
 
+    private String token;
+    private String profilePic;
     public String getUid() {
         return uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public void setUid(String uid) {

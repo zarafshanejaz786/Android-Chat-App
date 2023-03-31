@@ -116,6 +116,26 @@
 
         </LinearLayout>
 
+        <RadioGroup
+            android:gravity="center"
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_patient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patient"/>
+
+            <RadioButton
+                android:id="@+id/radio_doctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doctor"/>
+
+        </RadioGroup>
 
 
         <Button

@@ -237,10 +237,8 @@ public class SignupActivity extends AppCompatActivity {
 
                            String id2 =  task.getResult().getUser().getUid();
 
-
-
                                        // UserModel userModel = new UserModel(userName,email,password,"R.drawable.user",about);
-                                        UserModel userModel = new UserModel(userName,email,password,"R.drawable.user",about,address,phone,last_name);
+                                        UserModel userModel = new UserModel(userName,email,password,"R.drawable.user",about,address,phone,last_name,id2,"patient");
 
                                         sharedPreferences = getSharedPreferences("SavedToken",MODE_PRIVATE);
                                         String tokenInMain =  sharedPreferences.getString("ntoken","mynull");
@@ -250,7 +248,7 @@ public class SignupActivity extends AppCompatActivity {
                                                 .child(id2)
                                                 .setValue(userModel);
 
-                            Toast.makeText(SignupActivity.this, "SignUp Successful"+task.getException().getLocalizedMessage(),
+                            Toast.makeText(SignupActivity.this, "SignUp as Patient Successful"+task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
 
 

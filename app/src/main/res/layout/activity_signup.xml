@@ -39,7 +39,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="SIGN UP"
+                android:text="Patient SIGN UP"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="parent"

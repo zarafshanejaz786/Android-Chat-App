@@ -17,9 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
         <activity
-            android:name=".Select_User_Type_Activity"
-            android:exported="false" />
-        <activity
             android:name=".HomwActivity"
             android:exported="false" />
         <activity

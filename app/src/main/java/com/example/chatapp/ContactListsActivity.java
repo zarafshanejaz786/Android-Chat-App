@@ -139,5 +139,4 @@ public class ContactListsActivity extends AppCompatActivity {
 
     }
 
-
 }
