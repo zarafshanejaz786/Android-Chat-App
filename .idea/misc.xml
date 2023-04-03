@@ -48,18 +48,12 @@
         <entry key="..\:/Users/RAJ MANJREKAR/AndroidStudioProjects/ChatApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/RAJ MANJREKAR/AndroidStudioProjects/ChatApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/RAJ MANJREKAR/AndroidStudioProjects/ChatApp/app/src/main/res/xml/attr.xml" value="0.11770833333333333" />
-        <entry key="app/src/main/res/drawable/ic_email_black_24dp.xml" value="0.119" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2085" />
-        <entry key="app/src/main/res/layout/activity_doc_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_pat_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_select_user_type.xml" value="0.16893115942028986" />
-        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1078125" />
-        <entry key="app/src/main/res/layout/doctor_item.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1078125" />
-        <entry key="app/src/main/res/layout/patient_appointments_item.xml" value="0.1078125" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2085" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2085" />
+        <entry key="app/src/main/res/layout/activity_doc_home.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_my_doctors.xml" value="0.1078125" />
+        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.1078125" />
+        <entry key="app/src/main/res/layout/my_doctor_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/my_patient_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/pat_request_item.xml" value="0.1078125" />
       </map>
     </option>
   </component>

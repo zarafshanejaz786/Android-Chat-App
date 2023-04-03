@@ -68,13 +68,13 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
             }
         });
 
-        myPatientsHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPatientMedicalFolder(v.getContext(),patient, position);
-
-            }
-        });
+//        myPatientsHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openPatientMedicalFolder(v.getContext(),patient, position);
+//
+//            }
+//        });
         myPatientsHolder.callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

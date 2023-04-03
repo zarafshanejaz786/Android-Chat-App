@@ -204,7 +204,7 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
 
         String senderId;
          String receiverId;
-         receiverId =  doctorsList.get(1).getUid();
+         receiverId =  doctorsList.get(pos).getUid();
         senderId = firebaseAuth.getUid();
         String msg = "Hi Doctor";
         String encryptedMsg = msg;

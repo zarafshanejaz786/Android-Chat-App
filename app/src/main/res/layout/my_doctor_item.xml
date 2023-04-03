@@ -57,24 +57,18 @@
             android:id="@+id/md_voir_fiche_btn"
             android:layout_width="33dp"
             android:layout_height="34dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="358dp"
-            android:layout_marginLeft="358dp"
-            android:layout_marginTop="23dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/ic_chat_black_24dp" />
 
         <Button
             android:id="@+id/md_callBtn"
             android:layout_width="29dp"
             android:layout_height="29dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="316dp"
-            android:layout_marginLeft="316dp"
-            android:layout_marginBottom="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/md_voir_fiche_btn"
             android:background="@drawable/ic_call_black_24dp" />
 
     </RelativeLayout>

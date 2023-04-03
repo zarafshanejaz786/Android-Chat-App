@@ -60,24 +60,18 @@
             android:id="@+id/contact"
             android:layout_width="28dp"
             android:layout_height="25dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="365dp"
-            android:layout_marginLeft="365dp"
-            android:layout_marginBottom="23dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/ic_chat_black_24dp" />
 
         <Button
             android:id="@+id/callBtn"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="316dp"
-            android:layout_marginLeft="316dp"
-            android:layout_marginBottom="23dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/contact"
             android:background="@drawable/ic_call_black_24dp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
