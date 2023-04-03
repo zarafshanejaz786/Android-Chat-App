@@ -7,13 +7,11 @@ public class Doctor {
     private String email;
     private String speciality;
     private String uid;
-
     private String token;
     private String profilePic;
     public String getUid() {
         return uid;
     }
-
     public String getToken() {
         return token;
     }

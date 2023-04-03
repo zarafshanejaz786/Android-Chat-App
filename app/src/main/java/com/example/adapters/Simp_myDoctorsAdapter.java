@@ -44,7 +44,6 @@ import models.UserModel;
 
 public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAdapter.ViewHolder> {
 
-    Patient patient;
     StorageReference pathReference ;
 
     private final ArrayList<Doctor> doctorsList;
@@ -297,7 +296,7 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
         database.getReference().child("doctor")
                 .child(doc_uid)
                 .child("MyPatients")
-                .child(pat_userId).child("patient_uid")
+                .child(pat_userId).child("uid")
                 .setValue(pat_userId);
 
 

@@ -7,8 +7,9 @@ public class Patient {
     private String email;
     private String dateNaissance;
     private String situationFamiliale;
-
-
+    private String uid;
+    private String token;
+    private String profilePic;
     public Patient(){
         //needed for firebase
     }
@@ -68,5 +69,28 @@ public class Patient {
 
     public void setSituationFamiliale(String situationFamiliale) {
         this.situationFamiliale = situationFamiliale;
+    }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }
