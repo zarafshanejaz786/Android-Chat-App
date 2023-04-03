@@ -75,7 +75,8 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
             @Override
             public void onClick(View v) {
                 //openPage(v.getContext(),patientsList.get(position).getTel());
-                addUsertoChat(patientsList.get(position).getUid(), position);
+                movToChat(position);
+                //addUsertoChat(patientsList.get(position).getUid(), position);
             }
         });
 
@@ -183,26 +184,10 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
     public void setOnItemClickListener(OnClickListener listener) {
         Simp_myPatientsAdapter.listener = listener;
     }
-    private void getPatientsInfo(int pos){
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.getReference("Users").child(patientsList.get(pos).getUid())
-                .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                String _uName = snapshot.child("userName").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
-                String _uMail = snapshot.child("userMail").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
-                String uPic = snapshot.child("profilePic").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
-                String uAbout = snapshot.child("about").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
 
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void movToChat(int pos ){
 
         String uName = patientsList.get(pos).getName();
         String uMail = patientsList.get(pos).getEmail();
@@ -210,131 +195,12 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
         String token = patientsList.get(pos).getToken();
         String doc_uid = patientsList.get(pos).getUid();
 
-
+        Intent intent = new Intent(context, MessagingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("USERNAME", uName);
+        intent.putExtra("PROFILEIMAGE", uPic);
+        intent.putExtra("USERID", doc_uid);
+        intent.putExtra("TOKEN", token);
+        context.startActivity(intent);
     }
-    private void addUsertoChat (String pat_uid, int pos){
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-        Toast.makeText(context, "Contact added", Toast.LENGTH_SHORT).show();
-
-        //String userId = searchedUser.get(0).getUserId(); // it should be doctor uid
-        firebaseDatabase.getReference("Users").child(firebaseAuth.getCurrentUser().getUid())
-                .child("Contacts").child(pat_uid).setValue("Chats");
-
-        firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("Contacts").child(pat_uid)
-                .child("interactionTime").setValue(new Date().getTime());
-        firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("Contacts").child(pat_uid)
-                .child("recentMessage").setValue("Hi Patient");
-
-        uploadMsg_To_Rt_DB(pos);
-
-    }
-
-
-    private void uploadMsg_To_Rt_DB(int pos){
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-        String senderId;
-        String receiverId;
-        receiverId =  patientsList.get(pos).getUid();
-        senderId = firebaseAuth.getUid();
-        String msg = "Hi Patient";
-        String encryptedMsg = msg;
-        try {
-            encryptedMsg = AESUtils.encrypt(msg);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        long date = new Date().getTime();
-        MessageModel messageModel = new MessageModel();
-
-        messageModel = new MessageModel(senderId, encryptedMsg, date, "null");
-        // txtMsg = encryptedMsg;
-        //  if (!encryptedMsg.isEmpty()) {
-        MessageModel finalMessageModel = messageModel;
-        firebaseDatabase.getReference("Users").child(senderId).child("Contacts")
-                .child(receiverId).child("Chats").push()
-                .setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-
-
-
-                        //////////////////////////////////
-
-                        String uName = patientsList.get(pos).getName();
-                        String uMail = patientsList.get(pos).getEmail();
-                        String uPic = patientsList.get(pos).getProfilePic();
-                        String token = patientsList.get(pos).getToken();
-                        String doc_uid = patientsList.get(pos).getUid();
-
-                       /* UserModel model = new UserModel(uName, uMail, uPic);
-                        model.setUserId(doc_uid);
-                        model.setRecentMsgTime();
-                        model.setToken(token);
-                        model.setRecentMessage(recentmsg);
-                        */
-
-                        Intent intent = new Intent(context, MessagingActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("USERNAME", uName);
-                        intent.putExtra("PROFILEIMAGE", uPic);
-                        intent.putExtra("USERID", doc_uid);
-                        intent.putExtra("TOKEN", token);
-                        context.startActivity(intent);
-                        /////////////////////////////////
-
-
-/*
-                        FcmNotificationsSender fcmNotificationsSender = new FcmNotificationsSender(receiverToken, senderName
-                                , msg, getApplicationContext(), MessagingActivity.this);
-                        fcmNotificationsSender.SendNotifications();
-*/
-
-                        firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
-                                .child("interactionTime").setValue(date);
-
-                        firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)
-                                .child("interactionTime").setValue(date);
-
-
-                        firebaseDatabase.getReference("Users").child(receiverId).child("Contacts")
-                                .child(senderId).child("Chats").push()
-                                .setValue(finalMessageModel);
-
-
-                        firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)
-                                .child("recentMessage").setValue(msg);
-
-                        firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
-                                .child("recentMessage").setValue(msg);
-                        // tag = "";
-
-                        //add Patient To Doctor's My Patients List
-                     //   addPatientTo_DoctorList(pos, doc_uid);
-                    }
-                });
-        //  }
-
-    }
-    private void addPatientTo_DoctorList(int pos, String pat_uid){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // DatabaseReference myPatientsRef = database.getReference("doctor");
-
-        String pat_userId = firebaseAuth.getCurrentUser().getUid();
-
-        //Doctor doctor = new Doctor(patientsList.get(pos).getName(),patientsList.get(pos).getAddress(),patientsList.get(pos).getTel(),patientsList.get(pos).getEmail(),patientsList.get(pos).getSpeciality(),patientsList.get(pos).getUid());
-       // Patient patient = new Patient(patientsList.get(pos).getName(),patientsList.get(pos).getAddress(),patientsList.get(pos).getTel(),patientsList.get(pos).getEmail(),patientsList.get(pos).getSpeciality(),patientsList.get(pos).getUid());
-        database.getReference().child("doctor")
-                .child(pat_uid)
-                .child("MyPatients")
-                .child(pat_userId).child("uid")
-                .setValue(pat_userId);
-
-
-
-    }
-
 }

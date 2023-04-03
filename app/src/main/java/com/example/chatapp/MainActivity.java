@@ -190,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(UserModel userdata) {
 
-
                 Intent intent = new Intent(MainActivity.this, MessagingActivity.class);
                 intent.putExtra("USERNAME", userdata.getUserName());
                 intent.putExtra("PROFILEIMAGE", userdata.getProfilePic());

@@ -303,4 +303,20 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
 
     }
 
+    private void movToChat(int pos ){
+
+        String uName = doctorsList.get(pos).getName();
+        String uMail = doctorsList.get(pos).getEmail();
+        String uPic = doctorsList.get(pos).getProfilePic();
+        String token = doctorsList.get(pos).getToken();
+        String doc_uid = doctorsList.get(pos).getUid();
+
+        Intent intent = new Intent(context, MessagingActivity.class);
+        intent.putExtra("USERNAME", uName);
+        intent.putExtra("PROFILEIMAGE", uPic);
+        intent.putExtra("USERID", doc_uid);
+        intent.putExtra("TOKEN", token);
+        context.startActivity(intent);
+    }
+
 }
