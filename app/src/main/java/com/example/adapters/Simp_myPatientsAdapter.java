@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -148,7 +149,7 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
         TextView textViewTelephone;
         ImageView imageViewPatient;
         Button contactButton;
-        RelativeLayout parentLayout;
+        LinearLayout parentLayout;
 
 
         public ViewHolder(@NonNull View itemView) {

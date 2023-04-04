@@ -50,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         myAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+/*
         if(myAuth.getCurrentUser()!=null){
             //Intent intent = new Intent(SignupActivity.this,MainActivity.class);
             Intent intent = new Intent(SignupActivity.this,MainActivity.class);
@@ -57,6 +58,7 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+*/
 
         activitySignupBinding = ActivitySignupBinding.inflate(getLayoutInflater());
 

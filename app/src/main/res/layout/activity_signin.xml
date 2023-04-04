@@ -25,6 +25,7 @@
            />
 
         <TextView
+
             android:id="@+id/textView"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
@@ -46,8 +47,10 @@
 
         <LinearLayout
             android:id="@+id/ll_email"
-            android:layout_width="299dp"
-            android:layout_height="46dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             app:layout_constraintBottom_toTopOf="@+id/ll_pass"
@@ -55,11 +58,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             android:background="@drawable/rounded_edittext"
-
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/signin_mail"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
+                android:layout_weight="6"
                 android:layout_height="46dp"
                 android:background="@drawable/rounded_edittext"
                 android:ems="10"
@@ -74,7 +77,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:src="@drawable/ic_email_black_24dp"
@@ -83,8 +87,10 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_pass"
-            android:layout_width="299dp"
-            android:layout_height="46dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/signin_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +103,8 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/signin_password"
-                android:layout_width="260dp"
+                android:layout_width="0dp"
+                android:layout_weight="6"
                 android:layout_height="46dp"
                 android:background="@drawable/rounded_edittext"
                 android:ems="10"
@@ -110,7 +117,8 @@
                 />
             <ImageView
                 android:id="@+id/hide_pass_btn"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:src="@drawable/ic_baseline_remove_red_eye_24"
