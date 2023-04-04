@@ -165,8 +165,9 @@ public class MessagingActivity extends AppCompatActivity {
         activityMessagingBinding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MessagingActivity.this, MainActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(MessagingActivity.this, MainActivity.class);
+                //startActivity(intent);
+                onBackPressed();
             }
         });
 
@@ -1225,5 +1226,11 @@ public void sendTextMsg(int msgAdapterPosition){
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+         // finishAffinity();
+    }
 
 }

@@ -150,7 +150,7 @@
                     android:src="@drawable/baseline_mic_24" />
 
                 <ImageView
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:id="@+id/stop_audio"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
@@ -166,6 +166,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="0dp"
+                    android:visibility="gone"
                     android:onClick="playAudio"
                     android:src="@drawable/baseline_play_circle_outline_24" />
 

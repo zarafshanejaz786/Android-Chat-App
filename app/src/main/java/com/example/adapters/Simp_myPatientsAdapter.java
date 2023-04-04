@@ -185,21 +185,19 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
         Simp_myPatientsAdapter.listener = listener;
     }
 
-
-
     private void movToChat(int pos ){
 
         String uName = patientsList.get(pos).getName();
         String uMail = patientsList.get(pos).getEmail();
         String uPic = patientsList.get(pos).getProfilePic();
         String token = patientsList.get(pos).getToken();
-        String doc_uid = patientsList.get(pos).getUid();
+        String pat_uid = patientsList.get(pos).getUid();
 
         Intent intent = new Intent(context, MessagingActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("USERNAME", uName);
         intent.putExtra("PROFILEIMAGE", uPic);
-        intent.putExtra("USERID", doc_uid);
+        intent.putExtra("USERID", pat_uid);
         intent.putExtra("TOKEN", token);
         context.startActivity(intent);
     }

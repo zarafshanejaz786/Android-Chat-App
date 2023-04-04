@@ -76,6 +76,7 @@ public class MyPatientsActivity extends AppCompatActivity {
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(simp_adapter);
+                //simp_adapter.notifyDataSetChanged();
                 //pass patientsList to your adapter
             }
 
