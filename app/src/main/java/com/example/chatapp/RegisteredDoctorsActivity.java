@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 import models.Patient;
+import models.UserModel;
 
 public class RegisteredDoctorsActivity extends AppCompatActivity {
 
@@ -35,7 +36,8 @@ public class RegisteredDoctorsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registered_doctors);
-        setupPatientsList();
+        //setupPatientsList();
+        setupRegDoctorsList();
     }
 
     @Override
@@ -49,6 +51,7 @@ public class RegisteredDoctorsActivity extends AppCompatActivity {
         super.onStop();
         //adapter.stopListening();
     }
+/*
     private void setupPatientsList(){
         ArrayList<Doctor> patientsList = new ArrayList<>();
 
@@ -66,8 +69,10 @@ public class RegisteredDoctorsActivity extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
 
-                    /* Doctor doctor = ds.getValue(Doctor.class);
-                    patientsList.add(doctor);*/
+                    */
+/* Doctor doctor = ds.getValue(Doctor.class);
+                    patientsList.add(doctor);*//*
+
 
                     patientsList.add(new Doctor(
                             ds.child("name").getValue().toString(),
@@ -77,6 +82,55 @@ public class RegisteredDoctorsActivity extends AppCompatActivity {
                             ds.child("speciality").getValue().toString(),
                             ds.child("uid").getValue().toString()
                     ));
+                    Log.d(TAG, "onDataChange: " );
+                }
+                simp_adapter = new DoctorsAdapter(patientsList,getApplicationContext());
+                //ListMyPatients
+                RecyclerView recyclerView = findViewById(R.id.ListRegisteredDoctors);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(simp_adapter);
+                //pass patientsList to your adapter
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG, "onCancelled: " + error.getMessage());
+            }
+        });
+    }
+*/
+    private void setupRegDoctorsList(){
+        ArrayList<UserModel> patientsList = new ArrayList<>();
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        String userId = firebaseAuth.getCurrentUser().getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference myPatientsRef = database.getReference("Users");
+
+        myPatientsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+
+                    /* Doctor doctor = ds.getValue(Doctor.class);
+                    patientsList.add(doctor);*/
+                    if (ds.child("userType").getValue().toString().equals("doctor")){
+                        patientsList.add(new UserModel(
+                                ds.child("userName").getValue().toString(),
+                                ds.child("address").getValue().toString(),
+                                ds.child("tel").getValue().toString(),
+                                ds.child("userMail").getValue().toString(),
+                                ds.child("speciality").getValue().toString(),
+                                ds.child("uid").getValue().toString()
+                        ));
+
+                    }
+
                     Log.d(TAG, "onDataChange: " );
                 }
                 simp_adapter = new DoctorsAdapter(patientsList,getApplicationContext());

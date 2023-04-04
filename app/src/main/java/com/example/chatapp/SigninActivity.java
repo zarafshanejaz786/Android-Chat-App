@@ -82,6 +82,7 @@ public class SigninActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SigninActivity.this,SignupActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -121,9 +122,11 @@ public class SigninActivity extends AppCompatActivity {
                                                 if (userType_fb.equals("patient")){
                                                     Intent intent = new Intent(SigninActivity.this, Pat_HomeActivity.class);
                                                     startActivity(intent);
+                                                    finish();
                                                 }else if (userType_fb.equals("doctor")){
                                                     Intent intent = new Intent(SigninActivity.this, Doc_HomeActivity.class);
                                                     startActivity(intent);
+                                                    finish();
                                                 }
 
                                             }else {

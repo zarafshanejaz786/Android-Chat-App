@@ -4,20 +4,20 @@ import com.example.chatapp.R;
 
 public class UserModel {
 
-    String profilePic = "R.drawable.user", userName, userMail, userId, userPassword = "null", recentMessage, about, token,address, phone,last_name, uid, userType;
+    String profilePic = "R.drawable.user", userName, userMail, userId, userPassword = "null", recentMessage, about, token,address, phone,last_name, uid, userType, tel,speciality;
     long  recentMsgTime;
 
-
-    public UserModel(String profilePic, String userName, String userMail, String userId, String userPassword, String about) {
-        this.profilePic = profilePic;
+    public UserModel(String userName, String userMail, String profilePic,String tel,String token, String uid) {
         this.userName = userName;
         this.userMail = userMail;
-        this.userId = userId;
-        this.userPassword = userPassword;
-        this.about = about;
+        this.profilePic = profilePic;
+        this.tel = tel;
+        this.token = token;
+        this.uid = uid;
     }
 
-      public UserModel(String userMail, String userId, String userPassword, String userType) {
+
+    public UserModel(String userMail, String userId, String userPassword, String userType) {
         this.userMail = userMail;
         this.userId = userId;
         this.userPassword = userPassword;
@@ -179,6 +179,23 @@ public class UserModel {
 
     public void setRecentMessage(String recentMessage) {
         this.recentMessage = recentMessage;
+    }
+
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
 
 }

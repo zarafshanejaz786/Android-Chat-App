@@ -61,7 +61,7 @@ import com.example.adapters.messageAdapter;
 import models.MessageModel;
 
 public class MessagingActivity extends AppCompatActivity {
-
+    MessageModel messageModelTesting ;
     String tagImg;
     String tagPDF;
     String tagAudio;
@@ -948,7 +948,7 @@ public void sendTextMsg(int msgAdapterPosition){
             e.printStackTrace();
         }
         long date = new Date().getTime();
-        MessageModel messageModel = new MessageModel();
+         messageModelTesting = new MessageModel();
         activityMessagingBinding.typingSpace.setText("");
         //uploadImage();
 /*
@@ -956,13 +956,13 @@ public void sendTextMsg(int msgAdapterPosition){
             encryptedMsg = "document";
         }
 */
-        messageModel = new MessageModel(senderId, encryptedMsg, date, currentGallery_File_Uri);
+        messageModelTesting = new MessageModel(senderId, encryptedMsg, date, currentGallery_File_Uri);
        // txtMsg = encryptedMsg;
       //  if (!encryptedMsg.isEmpty()) {
-            MessageModel finalMessageModel = messageModel;
+//            MessageModel finalMessageModel = messageModel;
             firebaseDatabase.getReference("Users").child(senderId).child("Contacts")
                     .child(receiverId).child("Chats").push()
-                    .setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .setValue(messageModelTesting).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
 
@@ -981,7 +981,7 @@ public void sendTextMsg(int msgAdapterPosition){
 
                             firebaseDatabase.getReference("Users").child(receiverId).child("Contacts")
                                     .child(senderId).child("Chats").push()
-                                    .setValue(finalMessageModel);
+                                    .setValue(messageModelTesting);
 
 
                             firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)

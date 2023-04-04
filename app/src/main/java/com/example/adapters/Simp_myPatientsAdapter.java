@@ -23,6 +23,7 @@ import com.example.chatapp.R;
 
 import models.MessageModel;
 import models.Patient;
+import models.UserModel;
 
 import com.example.model.Doctor;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,13 +45,13 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
 
     StorageReference pathReference ;
 
-    private final ArrayList<Patient> patientsList;
+    private final ArrayList<UserModel> patientsList;
     Context context;
     private static OnClickListener listener;
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    public Simp_myPatientsAdapter(ArrayList<Patient> patientsList, Context context) {
+    public Simp_myPatientsAdapter(ArrayList<UserModel> patientsList, Context context) {
         this.patientsList = patientsList;
         this.context = context;
     }
@@ -70,7 +71,7 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
     @Override
     public void onBindViewHolder(@NonNull ViewHolder myPatientsHolder, int position) {
 
-        myPatientsHolder.textViewTitle.setText(patientsList.get(position).getName());
+        myPatientsHolder.textViewTitle.setText(patientsList.get(position).getUserName());
         myPatientsHolder.textViewTelephone.setText("Tél : "+patientsList.get(position).getTel());
         myPatientsHolder.contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +96,7 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
             }
         });
 
-        String imageId = patientsList.get(position).getEmail()+".jpg"; //add a title image
+        String imageId = patientsList.get(position).getUserMail()+".jpg"; //add a title image
         pathReference = FirebaseStorage.getInstance().getReference().child("DoctorProfile/"+ imageId); //storage the image
         pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -131,8 +132,8 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
     }
     private void openPatientMedicalFolder(Context medicalFolder, Patient patient, int pos){
         Intent intent = new Intent(medicalFolder, DossierMedical.class);
-        intent.putExtra("patient_name", patientsList.get(pos).getName());
-        intent.putExtra("patient_email",patientsList.get(pos).getEmail());
+        intent.putExtra("patient_name", patientsList.get(pos).getUserName());
+        intent.putExtra("patient_email",patientsList.get(pos).getUserMail());
         intent.putExtra("patient_phone", (CharSequence) patientsList.get(pos).getTel());
         medicalFolder.startActivity(intent);
     }
@@ -188,8 +189,8 @@ public class Simp_myPatientsAdapter extends RecyclerView.Adapter<Simp_myPatients
 
     private void movToChat(int pos ){
 
-        String uName = patientsList.get(pos).getName();
-        String uMail = patientsList.get(pos).getEmail();
+        String uName = patientsList.get(pos).getUserName();
+        String uMail = patientsList.get(pos).getUserMail();
         String uPic = patientsList.get(pos).getProfilePic();
         String token = patientsList.get(pos).getToken();
         String pat_uid = patientsList.get(pos).getUid();

@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\HP\.android\avd\3.7_FWVGA_slider_API_30.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="emulator-5554" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-04-04T07:03:44.008953800Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-04-04T16:30:17.944716300Z" />
   </component>
 </project>

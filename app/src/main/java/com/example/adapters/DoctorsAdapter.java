@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import models.Patient;
+import models.UserModel;
 
 
 public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHolder> {
@@ -38,13 +39,13 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
     Patient patient;
     StorageReference pathReference ;
 
-    private final ArrayList<Doctor> doctorsList;
+    private final ArrayList<UserModel> doctorsList;
     Context context;
     private static OnClickListener listener;
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
 
-    public DoctorsAdapter(ArrayList<Doctor> doctorsList, Context context) {
+    public DoctorsAdapter(ArrayList<UserModel> doctorsList, Context context) {
         this.doctorsList = doctorsList;
         this.context = context;
     }
@@ -64,7 +65,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder myDoctorsHolder, int position) {
 
-        myDoctorsHolder.doc_name.setText(doctorsList.get(position).getName());
+        myDoctorsHolder.doc_name.setText(doctorsList.get(position).getUserName());
         myDoctorsHolder.doc_description.setText("Speciality : "+doctorsList.get(position).getSpeciality());
 /*
         myDoctorsHolder.sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +121,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
         String userId = firebaseAuth.getCurrentUser().getUid();
 
-        Doctor doctor = new Doctor(doctorsList.get(pos).getName(),doctorsList.get(pos).getAddress(),doctorsList.get(pos).getTel(),doctorsList.get(pos).getEmail(),doctorsList.get(pos).getSpeciality(),doctorsList.get(pos).getUid());
+        Doctor doctor = new Doctor(doctorsList.get(pos).getUserName(),doctorsList.get(pos).getAddress(),doctorsList.get(pos).getTel(),doctorsList.get(pos).getUserMail(),doctorsList.get(pos).getSpeciality(),doctorsList.get(pos).getUid());
         database.getReference().child("patient")
                 .child(userId)
                 .child("MyDoctors")
@@ -145,8 +146,8 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
     }
     private void openPatientMedicalFolder(Context medicalFolder, Patient patient, int pos){
         Intent intent = new Intent(medicalFolder, DossierMedical.class);
-        intent.putExtra("patient_name", doctorsList.get(pos).getName());
-        intent.putExtra("patient_email",doctorsList.get(pos).getEmail());
+        intent.putExtra("patient_name", doctorsList.get(pos).getUserName());
+        intent.putExtra("patient_email",doctorsList.get(pos).getUserMail());
         intent.putExtra("patient_phone", (CharSequence) doctorsList.get(pos).getTel());
         medicalFolder.startActivity(intent);
     }
