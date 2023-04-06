@@ -40,40 +40,32 @@ import java.util.Date;
 
 import models.MessageModel;
 import models.Patient;
+import models.UserModel;
 
 
 public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAdapter.ViewHolder> {
     String p_name,p_address,p_tel,p_email, p_profilePic,p_uid, p_token;
-
     StorageReference pathReference;
-
-    private final ArrayList<Doctor> doctorsList;
+    private final ArrayList<UserModel> doctorsList;
     Context context;
     private static OnClickListener listener;
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-    public Simp_myDoctorsAdapter(ArrayList<Doctor> doctorsList, Context context) {
+    public Simp_myDoctorsAdapter(ArrayList<UserModel> doctorsList, Context context) {
         this.doctorsList = doctorsList;
         this.context = context;
     }
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_doctor_item, parent, false);
-
         return new ViewHolder(view);
     }
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder myDoctorsHolder, int position) {
 
-        myDoctorsHolder.textViewTitle.setText(doctorsList.get(position).getName());
+        myDoctorsHolder.textViewTitle.setText(doctorsList.get(position).getUserName());
         myDoctorsHolder.textViewDescription.setText("Specialite : " + doctorsList.get(position).getSpeciality());
         myDoctorsHolder.sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,8 +82,7 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
                 openPage(myDoctorsHolder.sendMessageButton.getContext(), doctorsList.get(position).getTel());
             }
         });
-//
-        String imageId = doctorsList.get(position).getEmail() + ".jpg"; //add a title image
+        String imageId = doctorsList.get(position).getUserMail() + ".jpg"; //add a title image
         pathReference = FirebaseStorage.getInstance().getReference().child("DoctorProfile/" + imageId); //storage the image
         pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -113,12 +104,10 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
         });
 
     }
-
     private void openPage(Context wf, String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
         wf.startActivity(intent);
     }
-
     private void openPage(Context wf, Doctor d) {
         //  Intent i = new Intent(wf, ChatActivity.class);
         Intent i = new Intent(wf, MainActivity.class);
@@ -126,22 +115,18 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
         i.putExtra("key2",FirebaseAuth.getInstance().getCurrentUser().getEmail().toString()+"_"+d.getEmail());*/
         wf.startActivity(i);
     }
-
     private void openPatientMedicalFolder(Context medicalFolder, Patient patient, int pos) {
         Intent intent = new Intent(medicalFolder, DossierMedical.class);
-        intent.putExtra("patient_name", doctorsList.get(pos).getName());
-        intent.putExtra("patient_email", doctorsList.get(pos).getEmail());
+        intent.putExtra("patient_name", doctorsList.get(pos).getUserName());
+        intent.putExtra("patient_email", doctorsList.get(pos).getUserMail());
         intent.putExtra("patient_phone", (CharSequence) doctorsList.get(pos).getTel());
         medicalFolder.startActivity(intent);
     }
-
     @Override
     public int getItemCount() {
         return doctorsList.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView textViewTitle;
         TextView textViewDescription;
         //TextView textViewStatus;
@@ -149,8 +134,6 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
         Button sendMessageButton;
         Button callBtn;
         //Button contactButton;
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.md_doctor_view_title);
@@ -160,7 +143,6 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
             sendMessageButton = itemView.findViewById(R.id.md_voir_fiche_btn);
             callBtn = itemView.findViewById(R.id.md_callBtn);
             // contactButton = itemView.findViewById(R.id.md_contact);
-
 /*
             itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -187,22 +169,16 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
     }
 
     private void addUsertoChat(String doc_uid, int pos) {
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
         Toast.makeText(context, "Contact added", Toast.LENGTH_SHORT).show();
-
         //String userId = searchedUser.get(0).getUserId(); // it should be doctor uid
         firebaseDatabase.getReference("Users").child(firebaseAuth.getCurrentUser().getUid())
                 .child("Contacts").child(doc_uid).setValue("Chats");
-
         firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("Contacts").child(doc_uid)
                 .child("interactionTime").setValue(new Date().getTime());
         firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("Contacts").child(doc_uid)
                 .child("recentMessage").setValue("Hi Doctor");
-
         uploadMsg_To_Rt_DB(pos);
-
     }
 
     private void uploadMsg_To_Rt_DB(int pos) {
@@ -231,22 +207,14 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
                 .setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                   //////////////////////////////////
 
-
-                        //////////////////////////////////
-
-                        String uName = doctorsList.get(pos).getName();
-                        String uMail = doctorsList.get(pos).getEmail();
+                        String uName = doctorsList.get(pos).getUserName();
+                        String uMail = doctorsList.get(pos).getUserMail();
                         String uPic = doctorsList.get(pos).getProfilePic();
                         String token = doctorsList.get(pos).getToken();
                         String doc_uid = doctorsList.get(pos).getUid();
 
-                       /* UserModel model = new UserModel(uName, uMail, uPic);
-                        model.setUserId(doc_uid);
-                        model.setRecentMsgTime();
-                        model.setToken(token);
-                        model.setRecentMessage(recentmsg);
-                        */
 
                         Intent intent = new Intent(context, MessagingActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -307,8 +275,8 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
             public void onDataChange(@NonNull DataSnapshot ds) {
                 // user info
                 p_name = ds.child("userName").getValue().toString();
-                p_address= "Pakistan";
-                p_tel= pos+"1234567";
+                p_address= ds.child("address").getValue().toString();
+                p_tel= ds.child("tel").getValue().toString();
                 p_email= ds.child("userMail").getValue().toString();
                 p_profilePic = ds.child("profilePic").getValue().toString();
                 p_uid = ds.child("uid").getValue().toString();
@@ -340,8 +308,8 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
     private void movToChat(int pos) {
 
         // doctor info
-        String uName = doctorsList.get(pos).getName();
-        String uMail = doctorsList.get(pos).getEmail();
+        String uName = doctorsList.get(pos).getUserName();
+        String uMail = doctorsList.get(pos).getUserMail();
         String uPic = doctorsList.get(pos).getProfilePic();
         String token = doctorsList.get(pos).getToken();
         String doc_uid = doctorsList.get(pos).getUid();

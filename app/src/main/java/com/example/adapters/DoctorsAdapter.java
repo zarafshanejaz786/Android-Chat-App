@@ -14,8 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chatapp.AESUtils;
 import com.example.chatapp.DossierMedical;
 import com.example.chatapp.MainActivity;
+import com.example.chatapp.MessagingActivity;
 import com.example.chatapp.R;
 import com.example.chatapp.SignupActivity;
 import com.example.model.Doctor;
@@ -29,7 +31,9 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import models.MessageModel;
 import models.Patient;
 import models.UserModel;
 
@@ -43,7 +47,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
     Context context;
     private static OnClickListener listener;
     FirebaseDatabase firebaseDatabase;
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public DoctorsAdapter(ArrayList<UserModel> doctorsList, Context context) {
         this.doctorsList = doctorsList;
@@ -87,7 +91,8 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 //openPage(myDoctorsHolder.sendMessageButton.getContext(),doctorsList.get(position).getTel());
-                addDocTo_MyDocList( position);
+                //addDocTo_MyDocList( position);
+                uploadMsg_To_Rt_DB(position);
             }
         });
 //
@@ -202,6 +207,82 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
     public void setOnItemClickListener(OnClickListener listener) {
         DoctorsAdapter.listener = listener;
+    }
+    private void uploadMsg_To_Rt_DB(int pos) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+        String senderId;
+        String receiverId;
+        receiverId = doctorsList.get(pos).getUid();
+        senderId = firebaseAuth.getUid();
+        String msg = "Hi Doctor";
+        String encryptedMsg = msg;
+        try {
+            encryptedMsg = AESUtils.encrypt(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        long date = new Date().getTime();
+        MessageModel messageModel = new MessageModel();
+
+        messageModel = new MessageModel(senderId, encryptedMsg, date, "null");
+        // txtMsg = encryptedMsg;
+        //  if (!encryptedMsg.isEmpty()) {
+        MessageModel finalMessageModel = messageModel;
+        firebaseDatabase.getReference("Users").child(senderId).child("Contacts")
+                .child(receiverId).child("Chats").push()
+                .setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        //////////////////////////////////
+
+                        String uName = doctorsList.get(pos).getUserName();
+                        String uMail = doctorsList.get(pos).getUserMail();
+                        String uPic = doctorsList.get(pos).getProfilePic();
+                        String token = doctorsList.get(pos).getToken();
+                        String doc_uid = doctorsList.get(pos).getUid();
+
+
+                        Intent intent = new Intent(context, MessagingActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("USERNAME", uName);
+                        intent.putExtra("PROFILEIMAGE", uPic);
+                        intent.putExtra("USERID", doc_uid);
+                        intent.putExtra("TOKEN", token);
+                        context.startActivity(intent);
+                        /////////////////////////////////
+
+
+/*
+                        FcmNotificationsSender fcmNotificationsSender = new FcmNotificationsSender(receiverToken, senderName
+                                , msg, getApplicationContext(), MessagingActivity.this);
+                        fcmNotificationsSender.SendNotifications();
+*/
+
+                        firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
+                                .child("interactionTime").setValue(date);
+
+                        firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)
+                                .child("interactionTime").setValue(date);
+
+
+                        firebaseDatabase.getReference("Users").child(receiverId).child("Contacts")
+                                .child(senderId).child("Chats").push()
+                                .setValue(finalMessageModel);
+
+
+                        firebaseDatabase.getReference("Users").child(senderId).child("Contacts").child(receiverId)
+                                .child("recentMessage").setValue(msg);
+
+                        firebaseDatabase.getReference("Users").child(receiverId).child("Contacts").child(senderId)
+                                .child("recentMessage").setValue(msg);
+                        // tag = "";
+
+
+                    }
+                });
+        //  }
+
     }
 
 }

@@ -103,41 +103,25 @@ public class MyPatientsActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myDoctorRef = database.getReference("Users");
+        DatabaseReference myPatientsRef = database.getReference("Users");
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-        myDoctorRef.addValueEventListener(new ValueEventListener() {
+        myPatientsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 patientsList.clear();
                 ArrayList<String> contactIds = new ArrayList<>();
-                ArrayList<Long> recentMsgTimes = new ArrayList<>();
-                ArrayList<String> recentMsg = new ArrayList<>();
-
 
                 if (snapshot.child(userId).hasChild("Contacts"))
                     for (DataSnapshot e : snapshot.child(firebaseAuth.getUid()).child("Contacts").getChildren()) {
                         contactIds.add(e.getKey());
-/*
-
-
-                        if(e.hasChild("interactionTime")) {
-                            recentMsgTimes.add((long)e.child("interactionTime").getValue());
-                        }
-
-                        if(e.hasChild("recentMessage")){
-                            recentMsg.add(e.child("recentMessage").getValue().toString());
-                        }
-
-*/
 
                     }
                 for (int i = 0; i < contactIds.size(); i++) {
                     String e = contactIds.get(i);
 
                     if (snapshot.hasChild(e)){
-
 
                     String uName = snapshot.child(e).child("userName").getValue().toString();
                     String uMail = snapshot.child(e).child("userMail").getValue().toString();
@@ -166,81 +150,5 @@ public class MyPatientsActivity extends AppCompatActivity {
 
 /////////////////////////////////////////////////////////////////////////////////////////////
     }
-/*
-    private void setupPatientsListFromChat() {
-        ArrayList<UserModel> patientsList = new ArrayList<>();
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        String userId = firebaseAuth.getCurrentUser().getUid();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference myDoctorRef = database.getReference("Users");
-        myDoctorRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                patientsList.clear();
-                ArrayList<String> contactIds = new ArrayList<>();
-                ArrayList<Long> recentMsgTimes = new ArrayList<>();
-                ArrayList<String> recentMsg = new ArrayList<>();
-
-
-                if (snapshot.child(userId).hasChild("Contacts"))
-                    for (DataSnapshot e : snapshot.child(firebaseAuth.getUid()).child("Contacts").getChildren()) {
-                        contactIds.add(e.getKey());
-                    }
-
-                for (int i = 0; i < contactIds.size(); i++) {
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-                    DatabaseReference myDoctorChatRef = database.getReference("Users").child(contactIds.get(i));
-
-                    myDoctorChatRef.addValueEventListener(new ValueEventListener() {
-                                                              @Override
-                                                              public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                  for (DataSnapshot ds : snapshot.getChildren()) {
-                                                                      if (ds.child("userType").getValue().toString().equals("doctor")) {
-                                                                          patientsList.add(new UserModel(
-                                                                                  ds.child("userName").getValue().toString(),
-                                                                                  ds.child("address").getValue().toString(),
-                                                                                  ds.child("tel").getValue().toString(),
-                                                                                  ds.child("userMail").getValue().toString(),
-                                                                                  ds.child("speciality").getValue().toString(),
-                                                                                  ds.child("uid").getValue().toString()
-                                                                          ));
-
-                                                                      }
-
-                                                                      Log.d(TAG, "onDataChange: ");
-                                                                  }
-                                                              }
-
-                                                              @Override
-                                                              public void onCancelled(@NonNull DatabaseError error) {
-                                                                  Log.d(TAG, "onCancelled: " + error.getMessage());
-                                                              }
-                                                          });
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-                }
-                simp_adapter = new Simp_myPatientsAdapter(patientsList, getApplicationContext());
-                RecyclerView recyclerView = findViewById(R.id.ListMyPatients);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(simp_adapter);
-                simp_adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-*/
 }
 

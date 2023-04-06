@@ -819,9 +819,7 @@ public void sendTextMsg(int msgAdapterPosition){
         } else {
             requestRecordingPermissins();
         }
-
     }
-
     private void ibPlay() {
         if (!isPlaying) {
             if (path != null) {
@@ -856,8 +854,6 @@ public void sendTextMsg(int msgAdapterPosition){
           //  ivSimpleBg.setVisibility(View.VISIBLE);
  //           lavPlaying.setVisibility(View.GONE);
             ibPlay.setImageDrawable(ContextCompat.getDrawable(MessagingActivity.this, R.drawable.baseline_play_circle_outline_24));//recording_play
-
-
         }
     }
 
@@ -877,7 +873,6 @@ public void sendTextMsg(int msgAdapterPosition){
 
                         mediaPlayer_tp.stop();
                         mediaPlayer_tp.release();
-
                         isPlaying = false;
                         mediaPlayer_tp = null;
                         mediaPlayer_tp = new MediaPlayer();
@@ -888,17 +883,12 @@ public void sendTextMsg(int msgAdapterPosition){
      //                     lavPlaying.setVisibility(View.GONE);
                         ibPlay.setImageDrawable(ContextCompat.getDrawable(MessagingActivity.this, R.drawable.baseline_play_circle_outline_24));//recording_play
                         return;
-
                     }
                 }
                 handler.postDelayed(this,1000);
-
             }
-
         });
     }
-
-
     private boolean checkRecordingPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED) {
             requestRecordingPermissins();
@@ -918,13 +908,10 @@ public void sendTextMsg(int msgAdapterPosition){
                     Toast.makeText(MessagingActivity.this, "Permission Given", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MessagingActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
-
                 }
             }
         }
-
     }
-
     private void requestRecordingPermissins() {
         ActivityCompat.requestPermissions(MessagingActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO_PERMISSION_CODE);
     }
