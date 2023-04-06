@@ -161,8 +161,7 @@ public class SigninActivity extends AppCompatActivity {
                                                 }
 
                                             }else {
-                                                FirebaseAuth.getInstance().signOut();
-                                                Toast.makeText(SigninActivity.this, " No such user available " , Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SigninActivity.this, " No such user available" , Toast.LENGTH_SHORT).show();
 
                                             }
                                         } else {
@@ -173,7 +172,7 @@ public class SigninActivity extends AppCompatActivity {
                                 });
                         }else {
                             //Toast.makeText(SigninActivity.this, "Please Select a user type", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(SigninActivity.this, "no such user available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SigninActivity.this, "Please select user type", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         activitySigninBinding.progressBar.setVisibility(View.GONE);
