@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,7 +24,8 @@ public class Pat_HomeActivity extends AppCompatActivity {
     Button BtnRequst;
     Button myChatBtn;
     Button profile;
-    ConstraintLayout main_container,ui_container;
+    ConstraintLayout main_container;
+    LinearLayout ui_container;
    // Button appointment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -33,7 +35,6 @@ public class Pat_HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pat_home);
         fragmentManager = getSupportFragmentManager();
-
        // appointment = findViewById(R.id.appointement_p);
         SignOutBtn=findViewById(R.id.signOutBtn);
         myDoctors = (Button)findViewById(R.id.myDoctors);
@@ -82,7 +83,7 @@ public class Pat_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

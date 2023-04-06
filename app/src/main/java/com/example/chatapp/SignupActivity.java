@@ -1,5 +1,7 @@
 package com.example.chatapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,12 +33,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import models.UserModel;
 
 public class SignupActivity extends AppCompatActivity {
 
+    String uName_fb ,uMail_fb , userType_fb;
     private ActivitySignupBinding activitySignupBinding;
     private FirebaseAuth myAuth;
     FirebaseDatabase firebaseDatabase;
@@ -50,15 +56,25 @@ public class SignupActivity extends AppCompatActivity {
         myAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-/*
+
         if(myAuth.getCurrentUser()!=null){
-            //Intent intent = new Intent(SignupActivity.this,MainActivity.class);
-            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-            finish();
+            checkUser();
+
+            if (!userType_fb.isEmpty()){
+                if (userType_fb.equals("patient")){
+                    Intent intent = new Intent(SignupActivity.this, Pat_HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    finish();
+                }else if (userType_fb.equals("doctor")){
+                    Intent intent = new Intent(SignupActivity.this, Doc_HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
         }
-*/
 
         activitySignupBinding = ActivitySignupBinding.inflate(getLayoutInflater());
 
@@ -266,6 +282,35 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
+    private void checkUser(){
+        //  userType();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String userId = firebaseAuth.getCurrentUser().getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myPatientsRef = database.getReference("Users").child(userId);
+        myPatientsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                uName_fb = snapshot.child("userName").getValue().toString();
+                uMail_fb = snapshot.child("userMail").getValue().toString();
+                userType_fb = snapshot.child("userType").getValue().toString();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG, "onCancelled: " + error.getMessage());
+            }
+        });
+
+/*        if (userType.equals(userType_fb)){
+            return true;
+        }else {
+            return false;
+        }*/
+    }
 
 
 }

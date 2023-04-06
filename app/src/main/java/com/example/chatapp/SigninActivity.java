@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,13 +61,43 @@ public class SigninActivity extends AppCompatActivity {
 
 //        sharedPreferences = getSharedPreferences("SavedToken",MODE_PRIVATE);
 
-
         myAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+///////////////////////////////////////////////////////////////////////
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+
+            // Get userType value from Firebase Realtime Database
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid()).child("userType");
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    String userType = snapshot.getValue(String.class);
+                    userType_fb = userType;
+
+                    // Start appropriate activity based on userType
+                    if (userType.equals("patient")) {
+                        Intent intent = new Intent(SigninActivity.this, Pat_HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (userType.equals("doctor")) {
+                        Intent intent = new Intent(SigninActivity.this, Doc_HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle error
+                }
+            });
+        }
+
+///////////////////////////////////////////////////////////////////////////
         activitySigninBinding.progressBar.setVisibility(View.GONE);
-
-
         activitySigninBinding.hidePassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +139,7 @@ public class SigninActivity extends AppCompatActivity {
                                         activitySigninBinding.progressBar.setVisibility(View.GONE);
                                         if (task.isSuccessful()) {
 
-                                            checkUser();
+                                            checkUser(myAuth);
                                             if (userType.equals(userType_fb)){
                                                 String id = task.getResult().getUser().getUid();
 
@@ -173,10 +204,10 @@ public class SigninActivity extends AppCompatActivity {
         });
     }
 
-    private void checkUser(){
+    private void checkUser(FirebaseAuth myAuth){
       //  userType();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            String userId = firebaseAuth.getCurrentUser().getUid();
+            String userId = myAuth.getCurrentUser().getUid();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myPatientsRef = database.getReference("Users").child(userId);
             myPatientsRef.addValueEventListener(new ValueEventListener() {
