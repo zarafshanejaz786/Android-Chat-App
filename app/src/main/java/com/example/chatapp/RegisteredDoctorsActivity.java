@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
@@ -116,17 +117,27 @@ public class RegisteredDoctorsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
+                    for (int i=0; i<patientsList.size(); i++){
+                        UserModel patient = patientsList.get(i);
+                        if(patient.getUid().equals(ds.child("uid").getValue() != null ? ds.child("uid").getValue().toString() : "" ))
+                        {
+                            return ;
+                        }
+                    }
 
                     /* Doctor doctor = ds.getValue(Doctor.class);
                     patientsList.add(doctor);*/
-                    if (ds.child("userType").getValue().toString().equals("doctor")){
+                    if ((ds.child("userType").getValue() != null ? ds.child("userType").getValue().toString() : "").equals("doctor")
+
+                    && (!ds.child("Contacts").hasChild(userId))
+                    ){
                         patientsList.add(new UserModel(
-                                ds.child("userName").getValue().toString(),
-                                ds.child("address").getValue().toString(),
-                                ds.child("tel").getValue().toString(),
-                                ds.child("userMail").getValue().toString(),
-                                ds.child("speciality").getValue().toString(),
-                                ds.child("uid").getValue().toString()
+                                ds.child("userName").getValue() != null ? ds.child("userName").getValue().toString() : "",
+                                ds.child("address").getValue() != null ? ds.child("address").toString() : "",
+                                ds.child("tel").getValue() != null ? ds.child("tel").toString() : "",
+                                ds.child("userMail").getValue() != null ? ds.child("userMail").getValue().toString() : "",
+                                ds.child("speciality").getValue() != null ? ds.child("speciality").getValue().toString() : "",
+                                ds.child("uid").getValue() != null ? ds.child("uid").getValue().toString() : ""
                         ));
 
                     }

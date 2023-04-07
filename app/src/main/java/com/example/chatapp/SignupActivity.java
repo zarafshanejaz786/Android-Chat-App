@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,24 +58,24 @@ public class SignupActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
 
-        if(myAuth.getCurrentUser()!=null){
-            checkUser();
-
-            if (!userType_fb.isEmpty()){
-                if (userType_fb.equals("patient")){
-                    Intent intent = new Intent(SignupActivity.this, Pat_HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    finish();
-                }else if (userType_fb.equals("doctor")){
-                    Intent intent = new Intent(SignupActivity.this, Doc_HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    finish();
-                }
-
-            }
-        }
+//        if(myAuth.getCurrentUser()!=null){
+//            checkUser();
+//
+//            if (!userType_fb.isEmpty()){
+//                if (userType_fb.equals("patient")){
+//                    Intent intent = new Intent(SignupActivity.this, Pat_HomeActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                    startActivity(intent);
+//                    finish();
+//                }else if (userType_fb.equals("doctor")){
+//                    Intent intent = new Intent(SignupActivity.this, Doc_HomeActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//
+//            }
+//        }
 
         activitySignupBinding = ActivitySignupBinding.inflate(getLayoutInflater());
 
@@ -267,12 +268,17 @@ public class SignupActivity extends AppCompatActivity {
                                                 .child(id2)
                                                 .setValue(userModel);
 
-                            Toast.makeText(SignupActivity.this, "SignUp as Patient Successful"+task.getException().getLocalizedMessage(),
+                            Toast.makeText(SignupActivity.this, "SignUp as Patient Successful",
                                     Toast.LENGTH_SHORT).show();
 
 
-                                    Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+//                                    Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+//                            startActivity(intent);
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            Intent intent = new Intent(SignupActivity.this, Pat_HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(SignupActivity.this, "SignUp failed "+task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();

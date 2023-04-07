@@ -177,7 +177,7 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
         firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("Contacts").child(doc_uid)
                 .child("interactionTime").setValue(new Date().getTime());
         firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).child("Contacts").child(doc_uid)
-                .child("recentMessage").setValue("Hi Doctor");
+                .child("recentMessage").setValue("Request for Appointment");
         uploadMsg_To_Rt_DB(pos);
     }
 
@@ -188,7 +188,7 @@ public class Simp_myDoctorsAdapter extends RecyclerView.Adapter<Simp_myDoctorsAd
         String receiverId;
         receiverId = doctorsList.get(pos).getUid();
         senderId = firebaseAuth.getUid();
-        String msg = "Hi Doctor";
+        String msg = "Request for Appointment";
         String encryptedMsg = msg;
         try {
             encryptedMsg = AESUtils.encrypt(msg);

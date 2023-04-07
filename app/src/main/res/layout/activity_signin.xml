@@ -109,7 +109,7 @@
                 android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:hint="Password"
-                android:text="password!2"
+                android:text=""
                 android:inputType="textPassword"
                 android:paddingLeft="20dp"
                 android:textColor="#000000"
@@ -127,6 +127,7 @@
         </LinearLayout>
 
         <RadioGroup
+            android:visibility="gone"
             android:gravity="center"
             android:id="@+id/radio_group"
             android:layout_width="match_parent"

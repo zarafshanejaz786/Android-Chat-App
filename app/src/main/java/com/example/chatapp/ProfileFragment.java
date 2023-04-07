@@ -160,9 +160,9 @@ public class ProfileFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         String uName = snapshot.child("userName").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
-                        String uMail = snapshot.child("userMail").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
-                        String uPic = snapshot.child("profilePic").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
-                        String uAbout = snapshot.child("about").getValue() != null ? snapshot.child("userName").getValue().toString() : "";
+                        String uMail = snapshot.child("userMail").getValue() != null ? snapshot.child("userMail").getValue().toString() : "";
+                        String uPic = snapshot.child("profilePic").getValue() != null ? snapshot.child("profilePic").getValue().toString() : "";
+                        String uAbout = snapshot.child("about").getValue() != null ? snapshot.child("about").getValue().toString() : "";
 
 
 /*

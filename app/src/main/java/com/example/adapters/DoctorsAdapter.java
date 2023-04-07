@@ -215,7 +215,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
         String receiverId;
         receiverId = doctorsList.get(pos).getUid();
         senderId = firebaseAuth.getUid();
-        String msg = "Hi Doctor";
+        String msg = "Request for Appointment";
         String encryptedMsg = msg;
         try {
             encryptedMsg = AESUtils.encrypt(msg);

@@ -51,6 +51,7 @@
         <entry key="app/src/main/res/layout/activity_doc_home.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_my_doctors.xml" value="0.1078125" />
         <entry key="app/src/main/res/layout/activity_signin.xml" value="0.1078125" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.16893115942028986" />
         <entry key="app/src/main/res/layout/my_doctor_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/my_patient_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/pat_request_item.xml" value="0.1078125" />
